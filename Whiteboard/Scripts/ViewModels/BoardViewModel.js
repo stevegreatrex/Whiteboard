@@ -18,6 +18,7 @@
 
             _events = ko.observableArray(),
             
+            //called during construction
             _init = function () {
                 var eventVms = [];
                 for (var i = 0; i < boardData.BoardEvents.length; i++) {
@@ -25,12 +26,15 @@
                 }
                 _events(eventVms);
 
-                hub.boardRenamed = function (boardId, newName, event) {
-                    if (boardId === boardData.Id) {
-                        _name(newName);
-                        _events.unshift(ko.mapping.fromJS(event));
-                    }
+                hub.boardRenamed = function (newName, event) {
+                   _name(newName);
+                   _events.unshift(ko.mapping.fromJS(event));
                 };
+            },
+            
+            //called once the hub is up and running
+            _onHubStarted = function () {
+                hub.join(boardData.Id);
             };
 
         _init();
@@ -41,6 +45,7 @@
         this.beginEditName = _beginEditName;
         this.saveName = _saveName;
         this.events = _events;
+        this.onHubStarted = _onHubStarted;
     };
 
 })(jQuery, ko, window);

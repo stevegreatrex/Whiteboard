@@ -44,8 +44,8 @@
             var viewModel = new ViewModels.BoardViewModel(hub, initialData);
             ko.applyBindings(viewModel);
             
-            $.connection.hub.start({ transport: 'longPolling' }, function() {
-            });
+            //note: using longPolling to work around bug 510 (https://github.com/SignalR/SignalR/issues/510) when working on Azure
+            $.connection.hub.start({ transport: 'longPolling' }, viewModel.onHubStarted);
         });
     </script>
 }

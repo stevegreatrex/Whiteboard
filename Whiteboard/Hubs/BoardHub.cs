@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using SignalR.Hubs;
 using Whiteboard.Models;
@@ -27,7 +28,12 @@ namespace Whiteboard.Hubs
 			
 			_context.SaveChanges();
 
-			Clients.boardRenamed(boardId, boardName, renamedEvent);
+			Clients[boardId.ToString()].boardRenamed(boardName, renamedEvent);
+		}
+
+		public void Join(Guid boardId)
+		{
+			Groups.Add(Context.ConnectionId, boardId.ToString());
 		}
 	}
 }
