@@ -1,0 +1,7 @@
+﻿@model IEnumerable<Whiteboard.Models.Board>
+
+<ul class="nav nav-pills nav-stacked">
+    
+@foreach (var item in Model) {
+    <li>@Html.ActionLink(item.Name, "Detail", "Board", new { id = item.Id })</li>
+}

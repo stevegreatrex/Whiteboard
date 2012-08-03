@@ -1,3 +1,8 @@
-﻿@{
+﻿@model IEnumerable<Whiteboard.Models.Board>
+@{
     ViewBag.Title = "Home";
 }
+
+<div class="row-fluid">
+    @Html.Partial("_MyBoards", this.Model)
+</div>
