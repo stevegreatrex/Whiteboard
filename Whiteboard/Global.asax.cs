@@ -9,6 +9,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Whiteboard.Models;
 
 namespace Whiteboard
 {
@@ -19,6 +20,9 @@ namespace Whiteboard
 	{
 		protected void Application_Start()
 		{
+			//Database.SetInitializer(new System.Data.Entity.DropCreateDatabaseIfModelChanges<WhiteboardContext>());
+			Database.SetInitializer<WhiteboardContext>(null);
+
 			AreaRegistration.RegisterAllAreas();
 
 			FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
