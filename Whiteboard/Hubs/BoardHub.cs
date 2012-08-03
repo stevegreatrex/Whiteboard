@@ -27,8 +27,7 @@ namespace Whiteboard.Hubs
 			
 			_context.SaveChanges();
 
-			Clients.boardRenamed(boardId, boardName);
-			Clients.eventRaised(boardId, renamedEvent);
+			Clients.boardRenamed(boardId, boardName, renamedEvent);
 		}
 	}
 }

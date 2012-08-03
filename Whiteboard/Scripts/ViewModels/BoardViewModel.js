@@ -25,15 +25,9 @@
                 }
                 _events(eventVms);
 
-                hub.boardRenamed = function (boardId, newName) {
+                hub.boardRenamed = function (boardId, newName, event) {
                     if (boardId === boardData.Id) {
                         _name(newName);
-                    }
-                };
-
-
-                hub.eventRaised = function (boardId, event) {
-                    if (boardId === boardData.Id) {
                         _events.unshift(ko.mapping.fromJS(event));
                     }
                 };
