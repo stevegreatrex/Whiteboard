@@ -1,19 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web;
-using System.Web.Http;
+using SignalR.Hubs;
 using Whiteboard.Models;
 
-namespace Whiteboard.Controllers
+namespace Whiteboard.Hubs
 {
-    public class BoardApiController : ApiController
-    {
-		private readonly WhiteboardContext _context = new WhiteboardContext();
+	public class BoardHub : Hub
+	{
+		private WhiteboardContext _context = new WhiteboardContext();
 
-		public void SetBoardName([FromUri]Guid boardId, [FromUri]string boardName)
+		public void RenameBoard(Guid boardId, string boardName)
 		{
 			if (string.IsNullOrEmpty(boardName)) throw new InvalidOperationException();
 
@@ -22,6 +20,8 @@ namespace Whiteboard.Controllers
 
 			board.Name = boardName;
 			_context.SaveChanges();
+
+			Clients.boardRenamed(boardId, boardName);
 		}
-    }
+	}
 }

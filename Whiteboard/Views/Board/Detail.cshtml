@@ -21,13 +21,17 @@
 @section scripts {
     @Scripts.Render("~/bundles/knockout")
     @Scripts.Render("~/bundles/viewmodels")
+    @Scripts.Render("~/bundles/signalr")
+    <script src="@Url.Content("~/signalr/hubs")" type="text/javascript"></script>
     <script>
         var initialData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(this.Model));
 
         $(function () {
-            var api = new Api('@Url.Content("~/")');
-            var viewModel = new ViewModels.BoardViewModel(api, initialData);
+            var hub = $.connection.boardHub;
+            var viewModel = new ViewModels.BoardViewModel(hub, initialData);
             ko.applyBindings(viewModel);
+
+            $.connection.hub.start();
         });
     </script>
 }

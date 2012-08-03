@@ -144,9 +144,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\BoardApiController.cs" />
     <Compile Include="Controllers\BoardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Hubs\BoardHub.cs" />
     <Compile Include="Migrations\201208031348236_InitialCreate.cs" />
     <Compile Include="Migrations\201208031348236_InitialCreate.Designer.cs">
       <DependentUpon>201208031348236_InitialCreate.cs</DependentUpon>
@@ -191,7 +191,6 @@
     <None Include="Scripts\jquery-1.7.2.intellisense.js">
       <DependentUpon>jquery-1.7.2.js</DependentUpon>
     </None>
-    <Content Include="Scripts\Api.js" />
     <Content Include="Scripts\bootstrap.extras.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js">

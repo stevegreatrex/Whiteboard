@@ -1,6 +1,6 @@
 ﻿(function($, ko, window, undefined) {
     var ViewModels = (window.ViewModels = window.ViewModels || {});
-    ViewModels.BoardViewModel = function (api, boardData) {
+    ViewModels.BoardViewModel = function (hub, boardData) {
         if (!boardData) throw "Board data must be specified";
 
         var
@@ -11,11 +11,20 @@
                 _isEditingName(true);
             },
             _saveName = ko.command(function () {
-                return api.setBoardName(boardData.Id, _name());
+                return hub.renameBoard(boardData.Id, _name());
             }).done(function() {
                 _isEditingName(false);
-            });
+            }),
+            
+            _init = function () {
+                hub.boardRenamed = function (boardId, newName) {
+                    if (boardId === boardData.Id) {
+                        _name(newName);
+                    }
+                };
+            };
 
+        _init();
 
         //public members
         this.name = _name;
