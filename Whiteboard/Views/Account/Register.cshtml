@@ -4,40 +4,34 @@
     ViewBag.Title = "Register";
 }
 
+<h1>Register Account</h1>
+
 <p>
     Passwords must be at least @Membership.MinRequiredPasswordLength characters long.
 </p>
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary()
+        
+    @Html.LabelFor(m => m.UserName)
+    @Html.TextBoxFor(m => m.UserName)            
 
-    <ul data-role="listview" data-inset="true">
-        <li data-role="list-divider">Details</li>
 
-        <li data-role="fieldcontain">
-            @Html.LabelFor(m => m.UserName)
-            @Html.TextBoxFor(m => m.UserName)            
-        </li>
+    @Html.LabelFor(m => m.Email)
+    @Html.TextBoxFor(m => m.Email)            
 
-        <li data-role="fieldcontain">
-            @Html.LabelFor(m => m.Email)
-            @Html.TextBoxFor(m => m.Email)            
-        </li>
 
-        <li data-role="fieldcontain">
-            @Html.LabelFor(m => m.Password)
-            @Html.PasswordFor(m => m.Password)            
-        </li>
 
-        <li data-role="fieldcontain">
-            @Html.LabelFor(m => m.ConfirmPassword)
-            @Html.PasswordFor(m => m.ConfirmPassword)            
-        </li>
+    @Html.LabelFor(m => m.Password)
+    @Html.PasswordFor(m => m.Password)            
 
-        <li data-role="fieldcontain">
-            <input type="submit" value="Register" />
-        </li>
-    </ul>
+
+    @Html.LabelFor(m => m.ConfirmPassword)
+    @Html.PasswordFor(m => m.ConfirmPassword)            
+
+    <br />
+    <input type="submit" value="Register" />
+
 }
 
 @section Scripts {

@@ -12,9 +12,8 @@
     </ul>
 }
 else {
-    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-        Sign In
-    </a>
+    @Html.ActionLink("Register", "Register", "Account", null, new { @class="btn" })
+    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">Sign In</a>
     <div class="dropdown-menu login">
        @using(Html.BeginForm("Login", "Account")) {
             @Html.ValidationSummary()
