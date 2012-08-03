@@ -1,8 +1,13 @@
 ﻿@model IEnumerable<Whiteboard.Models.Board>
 
 <h3>My Boards</h3>
-<ul class="nav nav-pills nav-stacked">
-    
-@foreach (var item in Model) {
-    <li>@Html.ActionLink(item.Name, "Detail", "Board", new { id = item.Id }, null)</li>
+@if (Request.IsAuthenticated)
+{
+    <ul class="nav nav-pills nav-stacked">
+        @foreach (var item in Model) {
+            <li>@Html.ActionLink(item.Name, "Detail", "Board", new { id = item.Id }, null)</li>
+        }
+    </ul>
+} else {
+    <p>Sign in or register to keep a record of your boards</p>
 }

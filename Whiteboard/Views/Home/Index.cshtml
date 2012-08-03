@@ -4,10 +4,12 @@
 }
 
 <div class="row-fluid">
-    <div class="span6">
-        
+    <div class="span6 well">
+        <h3>Get Started</h3>
+        <p>Just click the button to create a new board and start drawing!</p>
+        @Html.ActionLink("Create New Board", "Create", "Board", null, new { @class="btn btn-large btn-primary pull-right" })
     </div>
-    <div class="span6">
-        @Html.Partial("_MyBoards", this.Model)
+    <div class="span6 well">
+       @Html.Partial("_MyBoards", this.Model)
     </div>
 </div>
