@@ -15,10 +15,6 @@ namespace Whiteboard.Controllers
 		{
 			var boards = Enumerable.Empty<Board>();
 
-			var blank = _context.Boards.First(b => b.Name == null);
-			_context.Boards.Remove(blank);
-			_context.SaveChanges();
-
 			if (Request.IsAuthenticated)
 			{
 				boards = _context.Boards.Where(b => b.CreatedByUser == User.Identity.Name);
