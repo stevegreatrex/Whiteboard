@@ -30,6 +30,13 @@
                         _name(newName);
                     }
                 };
+
+
+                hub.eventRaised = function (boardId, event) {
+                    if (boardId === boardData.Id) {
+                        _events.unshift(ko.mapping.fromJS(event));
+                    }
+                };
             };
 
         _init();

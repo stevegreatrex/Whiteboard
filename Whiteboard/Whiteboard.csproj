@@ -188,10 +188,7 @@
     <Content Include="Content\jquery.mobile.theme-1.1.0.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <None Include="Properties\PublishProfiles\whiteboard - FTP %282%29.pubxml" />
-    <None Include="Properties\PublishProfiles\whiteboard - FTP.pubxml" />
-    <None Include="Properties\PublishProfiles\whiteboard - Web Deploy %282%29.pubxml" />
-    <None Include="Properties\PublishProfiles\whiteboard - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\whiteboard - Azure - Release.pubxml" />
     <None Include="Scripts\jquery-1.7.2.intellisense.js">
       <DependentUpon>jquery-1.7.2.js</DependentUpon>
     </None>

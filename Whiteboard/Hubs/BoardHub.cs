@@ -18,10 +18,17 @@ namespace Whiteboard.Hubs
 			var board = _context.Boards.Find(boardId);
 			if (board == null) throw new InvalidOperationException();
 
+			var renamedEvent = new BoardEvent { BoardId = board.Id, Description = string.Format("Renamed from {0} to {1}", board.Name, boardName) };
+			if (this.Context.User != null)
+				renamedEvent.User = this.Context.User.Identity.Name;
+
 			board.Name = boardName;
+			board.BoardEvents.Add(renamedEvent);
+			
 			_context.SaveChanges();
 
 			Clients.boardRenamed(boardId, boardName);
+			Clients.eventRaised(boardId, renamedEvent);
 		}
 	}
 }
