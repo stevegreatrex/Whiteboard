@@ -9,7 +9,7 @@
     <a class="btn" data-bind="click: beginEditName, visible: !isEditingName()">
         <i class="icon-pencil"></i>
     </a>
-    <form class="pull-left" data-bind="submit: saveName, visible: isEditingName, loadingWhen: saveName.isRunning">
+    <form class="pull-left" data-bind="submit: saveName, visible: isEditingName, loadingWhen: saveName.isRunning, enable: isEditingName">
         <input data-bind="value: name" />
         <button type="submit" class="btn btn-primary">
             <i class="icon-ok icon-white"></i>
