@@ -22,7 +22,7 @@
         <ul data-bind="foreach: events" class="unstyled">
             <li class="well event-container">
                 <h5 data-bind="text: Description"></h5>
-                <p data-bind="text: moment(Date()).fromNow()" class="date"></p>
+                <p data-bind="text: moment.utc(Date()).local().fromNow()" class="date"></p>
                 <p data-bind="text: User || '(Anonymous}'" class="username"></p>
             </li>
         </ul>
