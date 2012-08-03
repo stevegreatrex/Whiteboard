@@ -5,7 +5,17 @@
 }
 
 @section header {
-    <p class="header-text" data-bind="text: name"></p> 
+    <p class="header-text pull-left" data-bind="text: name, visible: !isEditingName()"></p> 
+    <a class="btn" data-bind="click: beginEditName, visible: !isEditingName()">
+        <i class="icon-pencil"></i>
+    </a>
+    <form class="pull-left" data-bind="submit: saveName, visible: isEditingName, loadingWhen: saveName.isRunning">
+        <input data-bind="value: name" />
+        <button type="submit" class="btn btn-primary">
+            <i class="icon-ok icon-white"></i>
+        </button>
+    </form>
+    
 }
 
 @section scripts {
@@ -15,7 +25,8 @@
         var initialData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(this.Model));
 
         $(function () {
-            var viewModel = new ViewModels.BoardViewModel(initialData);
+            var api = new Api('@Url.Content("~/")');
+            var viewModel = new ViewModels.BoardViewModel(api, initialData);
             ko.applyBindings(viewModel);
         });
     </script>

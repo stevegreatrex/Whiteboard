@@ -144,6 +144,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BoardApiController.cs" />
     <Compile Include="Controllers\BoardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Migrations\201208031348236_InitialCreate.cs" />
@@ -173,6 +174,8 @@
     <Content Include="Content\images\icons-18-white.png" />
     <Content Include="Content\images\icons-36-black.png" />
     <Content Include="Content\images\icons-36-white.png" />
+    <Content Include="Content\images\loader-dark.gif" />
+    <Content Include="Content\images\loader-white.gif" />
     <Content Include="Content\jquery.mobile-1.1.0.css" />
     <Content Include="Content\jquery.mobile-1.1.0.min.css" />
     <Content Include="Content\jquery.mobile.structure-1.1.0.css" />
@@ -188,6 +191,7 @@
     <None Include="Scripts\jquery-1.7.2.intellisense.js">
       <DependentUpon>jquery-1.7.2.js</DependentUpon>
     </None>
+    <Content Include="Scripts\Api.js" />
     <Content Include="Scripts\bootstrap.extras.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js">
@@ -251,6 +255,7 @@
     <Content Include="Views\Board\Detail.cshtml" />
     <Content Include="Views\Board\Create.cshtml" />
     <Content Include="Views\Shared\_MyBoards.cshtml" />
+    <Content Include="Scripts\knockout.bindingHandlers.js" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -274,7 +279,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>23634</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:7506/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

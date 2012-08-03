@@ -17,6 +17,7 @@ namespace Whiteboard
 						"~/Scripts/knockout*"));
 
 			bundles.Add(new ScriptBundle("~/bundles/viewmodels").Include(
+						"~/Scripts/api.js",
 						"~/Scripts/utils*",
 						"~/Scripts/ViewModels/*.js"));
 
