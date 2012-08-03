@@ -146,6 +146,11 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BoardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Migrations\201208031348236_InitialCreate.cs" />
+    <Compile Include="Migrations\201208031348236_InitialCreate.Designer.cs">
+      <DependentUpon>201208031348236_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Board.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -176,7 +181,9 @@
     <Content Include="Content\jquery.mobile.theme-1.1.0.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <None Include="Properties\PublishProfiles\whiteboard - FTP %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\whiteboard - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\whiteboard - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\whiteboard - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.7.2.intellisense.js">
       <DependentUpon>jquery-1.7.2.js</DependentUpon>
@@ -218,14 +225,16 @@
     <Content Include="Scripts\utils.min.js">
       <DependentUpon>utils.js</DependentUpon>
     </Content>
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <None Include="Content\less\Site.less" />
+    <Content Include="Content\less\Site.less" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
