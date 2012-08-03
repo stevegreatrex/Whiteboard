@@ -1,4 +1,20 @@
-﻿.login form {
+﻿/*
+	Body
+*/
+body {
+  padding-top: 60px;
+}
+@media (max-width: 979px) {
+  body {
+    padding-top: 0px;
+  }
+}
+
+/*
+	Inline Login
+*/
+
+.login form {
 	margin-left: 20px;
 	margin-right: 20px;
 }
