@@ -33,7 +33,7 @@ namespace Whiteboard
 			bundles.Add(new StyleBundle("~/Content/bootstrap").Include(
 				"~/Content/bootstrap*"));
 
-			bundles.Add(new StyleBundle("~/Content/dot.less").Include(
+			bundles.Add(new StyleBundle("~/Content/less/dot.less").Include(
 				"~/Content/less/*.less"));
 			
 		}
