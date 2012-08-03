@@ -40,10 +40,12 @@
 
         $(function () {
             var hub = $.connection.boardHub;
+            
             var viewModel = new ViewModels.BoardViewModel(hub, initialData);
             ko.applyBindings(viewModel);
-
-            $.connection.hub.start();
+            
+            $.connection.hub.start({ transport: 'longPolling' }, function() {
+            });
         });
     </script>
 }
