@@ -1,11 +1,37 @@
-﻿<ul class="nav pull-right">
+﻿<div class="btn-group pull-right dropdown">
+            
 @if(Request.IsAuthenticated) {
-    @Html.ActionLink(User.Identity.Name, "Index", "Account", routeValues: null, htmlAttributes: new { data_icon = "gear" })
+    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+        <i class="icon-user"></i> @User.Identity.Name
+        <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+        <li>@Html.ActionLink("My Account", "Index", "Account")</li>
+        <li class="divider"></li>
+        <li>@Html.ActionLink("Sign Out", "LogOff", "Account")</li>
+    </ul>
 }
 else {
-    @Html.ActionLink("Sign In", "Login", "Account", routeValues: null, htmlAttributes: new { data_icon = "gear" })
+    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+        Sign In
+    </a>
+    <div class="dropdown-menu login">
+       @using(Html.BeginForm("Login", "Account")) {
+            @Html.ValidationSummary()
+
+            <label for="UserName">User name</label>
+            <input data-val="true" data-val-required="The User name field is required." id="UserName" name="UserName" type="text" value="" />            
+            
+            <label for="Password">Password</label>
+            <input data-val="true" data-val-required="The Password field is required." id="Password" name="Password" type="password" />            
+
+            
+            <input data-val="true" data-val-required="The Remember me? field is required." id="RememberMe" name="RememberMe" type="checkbox" value="true" /><label for="RememberMe">Remember me?</label>
+           
+            <input type="submit" value="Sign In" />
+       }
+    </div>
 }
-    
-</ul>
+</div>
 
 
