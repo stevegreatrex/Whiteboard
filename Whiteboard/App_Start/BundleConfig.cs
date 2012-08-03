@@ -13,6 +13,9 @@ namespace Whiteboard
 			bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
 						"~/Scripts/bootstrap*"));
 
+			bundles.Add(new ScriptBundle("~/bundles/moment").Include(
+						"~/Scripts/moment*"));
+
 			bundles.Add(new ScriptBundle("~/bundles/knockout").Include(
 						"~/Scripts/knockout*"));
 

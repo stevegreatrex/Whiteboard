@@ -15,8 +15,16 @@
             }).done(function() {
                 _isEditingName(false);
             }),
+
+            _events = ko.observableArray(),
             
             _init = function () {
+                var eventVms = [];
+                for (var i = 0; i < boardData.BoardEvents.length; i++) {
+                    eventVms.push(ko.mapping.fromJS(boardData.BoardEvents[i]));
+                }
+                _events(eventVms);
+
                 hub.boardRenamed = function (boardId, newName) {
                     if (boardId === boardData.Id) {
                         _name(newName);
@@ -31,6 +39,7 @@
         this.isEditingName = _isEditingName;
         this.beginEditName = _beginEditName;
         this.saveName = _saveName;
+        this.events = _events;
     };
 
 })(jQuery, ko, window);

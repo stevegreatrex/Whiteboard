@@ -24,6 +24,12 @@ namespace Whiteboard.Controllers
 			if (board == null)
 				return HttpNotFound();
 
+			board.BoardEvents = _context.BoardEvents
+				.Where(be => be.BoardId == id)
+				.OrderByDescending(be => be.Date)
+				.Take(10)
+				.ToList();
+
 			return View(board);
         }
 
@@ -44,8 +50,14 @@ namespace Whiteboard.Controllers
             if (ModelState.IsValid)
             {
                 board.Id = Guid.NewGuid();
+				var createdEvent = new BoardEvent { BoardId = board.Id, Description = "Created " + board.Name };
+				board.BoardEvents.Add(createdEvent);
 				if (Request.IsAuthenticated)
+				{
 					board.CreatedByUser = User.Identity.Name;
+					createdEvent.User = User.Identity.Name;
+				}
+				
                 _context.Boards.Add(board);
                 _context.SaveChanges();
 				return RedirectToAction("Detail", new { id = board.Id });

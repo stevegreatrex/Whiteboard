@@ -15,10 +15,22 @@
             <i class="icon-ok icon-white"></i>
         </button>
     </form>
-    
 }
 
+<div class="container-fluid">
+    <div class="span2 offset10">
+        <ul data-bind="foreach: events" class="unstyled">
+            <li class="well event-container">
+                <h5 data-bind="text: Description"></h5>
+                <p data-bind="text: moment(Date()).fromNow()" class="date"></p>
+                <p data-bind="text: User || '(Anonymous}'" class="username"></p>
+            </li>
+        </ul>
+    </div>
+</div>
+
 @section scripts {
+    @Scripts.Render("~/bundles/moment")
     @Scripts.Render("~/bundles/knockout")
     @Scripts.Render("~/bundles/viewmodels")
     @Scripts.Render("~/bundles/signalr")

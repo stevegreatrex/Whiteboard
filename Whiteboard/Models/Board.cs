@@ -8,6 +8,11 @@ namespace Whiteboard.Models
 {
 	public class Board
 	{
+		public Board()
+		{
+			this.BoardEvents = new List<BoardEvent>();
+		}
+
 		[Required]
 		public Guid Id { get; set; }
 		
@@ -15,5 +20,7 @@ namespace Whiteboard.Models
 		public string Name { get; set; }
 
 		public string CreatedByUser { get; set; }
+
+		public ICollection<BoardEvent> BoardEvents { get; set; }
 	}
 }
