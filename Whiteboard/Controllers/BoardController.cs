@@ -27,7 +27,7 @@ namespace Whiteboard.Controllers
 			board.BoardEvents = _context.BoardEvents
 				.Where(be => be.BoardId == id)
 				.OrderByDescending(be => be.Date)
-				.Take(10)
+				.Take(5)
 				.ToList();
 
 			return View(board);

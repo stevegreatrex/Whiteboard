@@ -12,11 +12,15 @@
             },
             _saveName = ko.command(function () {
                 return hub.renameBoard(boardData.Id, _name());
-            }).done(function() {
+            }).done(function () {
                 _isEditingName(false);
             }),
 
             _events = ko.observableArray(),
+            _newEvents = ko.observable(0),
+            _clearNewEvents = function () {
+                _newEvents(0);
+            },
             
             //called during construction
             _init = function () {
@@ -29,6 +33,7 @@
                 hub.boardRenamed = function (newName, event) {
                    _name(newName);
                    _events.unshift(ko.mapping.fromJS(event));
+                   _newEvents(_newEvents() + 1);
                 };
             },
             
@@ -46,6 +51,8 @@
         this.saveName = _saveName;
         this.events = _events;
         this.onHubStarted = _onHubStarted;
+        this.newEvents = _newEvents;
+        this.clearNewEvents = _clearNewEvents;
     };
 
 })(jQuery, ko, window);

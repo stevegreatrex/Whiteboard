@@ -6,7 +6,7 @@
 
 @section header {
     <p class="header-text pull-left" data-bind="text: name, visible: !isEditingName()"></p> 
-    <a class="btn" data-bind="click: beginEditName, visible: !isEditingName()">
+    <a class="btn pull-left" data-bind="click: beginEditName, visible: !isEditingName()">
         <i class="icon-pencil"></i>
     </a>
     <form class="pull-left" data-bind="submit: saveName, visible: isEditingName, loadingWhen: saveName.isRunning, enable: isEditingName">
@@ -15,19 +15,24 @@
             <i class="icon-ok icon-white"></i>
         </button>
     </form>
-}
 
-<div class="container-fluid">
-    <div class="span2 offset10">
-        <ul data-bind="foreach: events" class="unstyled">
-            <li class="well event-container">
+    <div class="pull-left dropdown">
+        <a class="btn dropdown-toggle btn-inverse" data-toggle="dropdown" href="#" data-bind="click: clearNewEvents">
+            <strong data-bind="visible: newEvents, text: newEvents"></strong>
+            <i class="icon-flag icon-white"></i>
+            <span class="caret"></span>
+        </a>
+        <ul data-bind="foreach: events" class="dropdown-menu event-menu">
+            <li class="event-container well">
                 <h5 data-bind="text: Description"></h5>
                 <p data-bind="text: moment.utc(Date()).local().fromNow()" class="date"></p>
                 <p data-bind="text: User || '(Anonymous}'" class="username"></p>
             </li>
         </ul>
     </div>
-</div>
+    
+}
+
 
 @section scripts {
     @Scripts.Render("~/bundles/moment")
