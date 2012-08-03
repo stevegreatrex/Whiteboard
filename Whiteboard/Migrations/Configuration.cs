@@ -9,7 +9,7 @@ namespace Whiteboard.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(Whiteboard.Models.WhiteboardContext context)

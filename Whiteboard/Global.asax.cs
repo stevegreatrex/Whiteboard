@@ -20,8 +20,8 @@ namespace Whiteboard
 	{
 		protected void Application_Start()
 		{
-			//Database.SetInitializer(new System.Data.Entity.DropCreateDatabaseIfModelChanges<WhiteboardContext>());
-			Database.SetInitializer<WhiteboardContext>(null);
+			Database.SetInitializer(new System.Data.Entity.DropCreateDatabaseIfModelChanges<WhiteboardContext>());
+			//Database.SetInitializer<WhiteboardContext>(null);
 
 			AreaRegistration.RegisterAllAreas();
 
