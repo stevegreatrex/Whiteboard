@@ -19,8 +19,9 @@ namespace Whiteboard
 			bundles.Add(new StyleBundle("~/Content/css/bootstrap").Include(
 				"~/Content/bootstrap*"));
 
-			bundles.Add(new StyleBundle("~/Content/css").Include(
-				"~/Content/site.css"));
+			bundles.Add(new StyleBundle("~/Content/less").Include(
+				"~/Content/less/*.less"));
+			
 		}
 	}
 }
