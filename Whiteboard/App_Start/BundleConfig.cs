@@ -10,19 +10,21 @@ namespace Whiteboard
 			bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
 						"~/Scripts/jquery-1.*"));
 
-			bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
-						"~/Scripts/jquery-ui*"));
-
-			bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-						"~/Scripts/jquery.unobtrusive*",
-						"~/Scripts/jquery.validate*"));
+			bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+						"~/Scripts/bootstrap*"));
 
 			bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
 						"~/Scripts/modernizr-*"));
 
 			bundles.Add(new ScriptBundle("~/bundles/jquerymobile").Include("~/Scripts/jquery.mobile*"));
 
-			bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css"));
+			bundles.Add(new StyleBundle("~/Content/css/bootstrap").Include(
+				"~/Content/bootstrap.min.css",
+				"~/Content/bootstrap-responsive.min.css",
+				"~/Content/bootstrap.dropdown.no-collapse.css"));
+
+			bundles.Add(new StyleBundle("~/Content/css").Include(
+				"~/Content/site.css"));
 
 			bundles.Add(new StyleBundle("~/Content/mobilecss").Include("~/Content/jquery.mobile*"));
 
