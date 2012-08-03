@@ -20,7 +20,7 @@ namespace Whiteboard
 			bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
 						"~/Scripts/modernizr-*"));
 
-			bundles.Add(new StyleBundle("~/Content/css/bootstrap").Include(
+			bundles.Add(new StyleBundle("~/Content/bootstrap").Include(
 				"~/Content/bootstrap*"));
 
 			bundles.Add(new StyleBundle("~/Content/dot.less").Include(
