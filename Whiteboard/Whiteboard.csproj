@@ -225,6 +225,7 @@
     <Content Include="Scripts\utils.min.js">
       <DependentUpon>utils.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\ViewModels\BoardViewModel.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

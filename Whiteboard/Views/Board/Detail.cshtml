@@ -5,5 +5,18 @@
 }
 
 @section header {
-    <p class="navbar-text">@Model.Name</p> 
+    <p class="header-text" data-bind="text: name"></p> 
+}
+
+@section scripts {
+    @Scripts.Render("~/bundles/knockout")
+    @Scripts.Render("~/bundles/viewmodels")
+    <script>
+        var initialData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(this.Model));
+
+        $(function () {
+            var viewModel = new ViewModels.BoardViewModel(initialData);
+            ko.applyBindings(viewModel);
+        });
+    </script>
 }

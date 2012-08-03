@@ -14,8 +14,11 @@ namespace Whiteboard
 						"~/Scripts/bootstrap*"));
 
 			bundles.Add(new ScriptBundle("~/bundles/knockout").Include(
-						"~/Scripts/knockout*",
-						"~/Scripts/utils*"));
+						"~/Scripts/knockout*"));
+
+			bundles.Add(new ScriptBundle("~/bundles/viewmodels").Include(
+						"~/Scripts/utils*",
+						"~/Scripts/ViewModels/*.js"));
 
 			bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
 						"~/Scripts/modernizr-*"));
