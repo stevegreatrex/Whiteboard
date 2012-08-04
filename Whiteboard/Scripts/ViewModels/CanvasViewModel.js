@@ -125,6 +125,7 @@
             _loadTools = function () {
                 _availableTools.push(ViewModels.CanvasViewModel.Tools.Pan);
                 _availableTools.push(ViewModels.CanvasViewModel.Tools.Pen);
+                _availableTools.push(ViewModels.CanvasViewModel.Tools.Ellipse);
             },
 
             //select a tool
