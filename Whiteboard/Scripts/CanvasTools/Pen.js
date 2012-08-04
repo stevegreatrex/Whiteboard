@@ -4,6 +4,9 @@
             //keep a record of all points in the current line
             _currentDrawingPoints = [],
 
+            //the line drawn whilst the mouse/touch is down
+            _tempLine,
+
             //line color
             _color = ko.observable("#000"),
 
@@ -29,22 +32,22 @@
         
         //reset the current drawing when the pen goes down
         _penDown = function (pos, cursorLayer) {
-            _currentDrawingPoints = [];
+            _currentDrawingPoints = [pos];
+            _tempLine = new Kinetic.Line({
+                strokeWidth: _size(),
+                stroke: _color(),
+                points: _currentDrawingPoints
+            });
+            cursorLayer.add(_tempLine);
         },
 
         //save each point in the current drawing
         //and put a dot at the point where it was 
         _penMove = function (pos, cursorLayer) {
-            cursorLayer.add(new Kinetic.Circle({
-                x: pos.x,
-                y: pos.y,
-                radius: _size(),
-                fill: _color()
-            }));
             _currentDrawingPoints.push(pos);
         },
         _penUp = function (pos) {
-            if (_currentDrawingPoints.length)
+            if (_currentDrawingPoints.length) {
                 return {
                     Type: "Line",
                     Data: {
@@ -53,6 +56,7 @@
                         stroke: _color()
                     }
                 };
+            }
         };
 
         _init();
