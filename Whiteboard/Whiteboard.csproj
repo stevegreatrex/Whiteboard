@@ -155,6 +155,7 @@
       <DependentUpon>201208031348236_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Artifact.cs" />
     <Compile Include="Models\Board.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -222,10 +223,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js">
       <DependentUpon>jquery.validate.unobtrusive.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\kinetic-v3.9.1.js" />
-    <Content Include="Scripts\kinetic-v3.9.1.min.js">
-      <DependentUpon>kinetic-v3.9.1.js</DependentUpon>
-    </Content>
+    <Content Include="Scripts\kinetic-v3.10.5.min.js" />
     <Content Include="Scripts\knockout-2.1.0.debug.js" />
     <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\knockout.mapping-latest.debug.js" />
