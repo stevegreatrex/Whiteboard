@@ -20,7 +20,7 @@
 
             //update cursor with size and color
             _updateCursor = function () {
-                _cursor.setRadius(_size());
+                _cursor.setRadius(_size()/2);
                 _cursor.setStroke(_color());
             },
            
@@ -70,6 +70,7 @@
             penUp: _penUp,
             icon: "icon-pencil",
             name: "Pen Tool",
+            color: _color,
             options: [
                 { name: "Color", editor: "color-editor", value: _color },
                 { name: "Pen Size", editor: "pen-size-editor", value: _size }

@@ -7,11 +7,12 @@
 @section header {
     <!-- Tools -->
     <div class="pull-right dropdown" title="Tools">
-        <a class="btn dropdown-toggle btn-primary" data-bind="style: { background: canvas.currentTool().color }" data-toggle="dropdown" href="#">
+        <a class="btn dropdown-toggle btn-inverse"  data-toggle="dropdown" href="#">
             <i data-bind="attr: { class: canvas.currentTool().icon + ' icon-white' }"></i>
+            <span class="current-color-swatch" data-bind="style: { 'background-color': canvas.currentTool().color}, visible: canvas.currentTool().color"></span>
             <span class="caret"></span>
         </a>
-        <ul class="dropdown-menu">
+        <ul class="dropdown-menu tools-menu">
             <li>
                 <div data-bind="foreach: canvas.availableTools">
                     <a href="#" class="btn" data-bind="click: $parent.canvas.selectTool">
