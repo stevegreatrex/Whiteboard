@@ -29,6 +29,14 @@
             //artifacts
             _artifacts = ko.observableArray(),
 
+            //re-centers the view
+            _recenter = function () {
+                _drawingLayer.setOffset(0, 0);
+                _cursorLayer.setOffset(0, 0);
+                _drawingLayer.draw();
+                _resetCursorLayer();
+            },
+
             //reset the cursor layer after a draw has completed
             _resetCursorLayer = function () {
                 _cursorLayer.removeChildren();
@@ -46,7 +54,18 @@
                 _cursorLayer.draw();
             },
 
-            //hook up the drag events on the event sink
+            //get the current position of the mouse/touch, taking offset into account
+            _getCurrentPosition = function () {
+                 var pos = _stage.getUserPosition(),
+                     currentOffset = _drawingLayer.getOffset();
+
+                 return {
+                     x: pos.x + currentOffset.x,
+                     y: pos.y + currentOffset.y
+                 };
+             },
+
+            //create the context passed to tools
             _createEventContext = function () {
                 return {
                     cursorLayer: _cursorLayer,
@@ -54,15 +73,8 @@
                     stage: _stage
                 }
             },
-            _getCurrentPosition = function () {
-                var pos = _stage.getUserPosition(),
-                    currentOffset = _drawingLayer.getOffset();
-
-                return {
-                    x: pos.x + currentOffset.x,
-                    y: pos.y + currentOffset.y
-                };
-            },
+           
+            //hook up the drag events on the event sink
             _hookUpDragEvents = function () {
                 _eventSink.on("dragstart", function (e) {
                     var pos = _getCurrentPosition();
@@ -152,6 +164,7 @@
         this.availableTools = _availableTools;
         this.currentTool = _currentTool;
         this.selectTool = _selectTool;
+        this.recenter = _recenter;
     };
 
     ViewModels.CanvasViewModel.Tools = {};

@@ -37,9 +37,8 @@
                 finalWidth = context.stage.getWidth() + Math.abs(finalOffset.x),
                 finalHeight = context.stage.getHeight() + Math.abs(finalOffset.y);
 
+            //resize the stage so we can now draw outside the original boundaries
             context.stage.setSize(finalWidth, finalHeight);
-            //context.cursorLayer.setSize(finalWidth, finalHeight);
-            //context.drawingLayer.setSize(finalWidth, finalHeight);
             
             _startPosition = null;
         };
