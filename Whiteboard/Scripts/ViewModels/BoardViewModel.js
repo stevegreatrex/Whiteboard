@@ -1,7 +1,8 @@
 ﻿(function($, ko, window, undefined) {
     var ViewModels = (window.ViewModels = window.ViewModels || {});
-    ViewModels.BoardViewModel = function (hub, boardData) {
+    ViewModels.BoardViewModel = function (hub, boardData, canvas) {
         if (!boardData) throw "Board data must be specified";
+        if (!canvas) throw "Canvas view model is required";
 
         var
             //board name
@@ -12,20 +13,35 @@
                 return hub.renameBoard(boardData.Id, _name());
             }),
 
+            //events
             _events = ko.observableArray(),
             _newEvents = ko.observable(0),
             _clearNewEvents = function () {
                 _newEvents(0);
             },
-            
-            //called during construction
-            _init = function () {
-                //populate the initial events
+             
+            //populate the initial events
+            _populateEvents = function() {
                 var eventVms = [];
                 for (var i = 0; i < boardData.BoardEvents.length; i++) {
                     eventVms.push(ko.mapping.fromJS(boardData.BoardEvents[i]));
                 }
                 _events(eventVms);
+            },
+
+            //populate the initial artifacts
+            _populateArtifacts = function() {
+                var artifactVms = [];
+                for (var i = 0; i < boardData.Artifacts.length; i++) {
+                    artifactVms.push(new ViewModels.ArtifactViewModel(boardData.Artifacts[i]));
+                }
+                canvas.artifacts(artifactVms);
+            },
+            
+            //called during construction
+            _init = function () {
+                _populateEvents();
+                _populateArtifacts();
 
                 //react to board being renamed
                 hub.boardRenamed = function (newName, event) {
@@ -34,8 +50,14 @@
                    _newEvents(_newEvents() + 1);
                 };
 
+                //save the name when it is updated
                 _name.subscribe(function () {
                     _saveName();
+                });
+
+                //save any artifact added to the canvas
+                canvas.artifactAdded.subscribe(function(added) {
+                    added.save(hub, boardData.Id);
                 });
             },
             

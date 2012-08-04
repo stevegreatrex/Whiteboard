@@ -12,6 +12,24 @@ namespace Whiteboard.Hubs
 	{
 		private WhiteboardContext _context = new WhiteboardContext();
 
+		public Artifact AddArtifact(Guid boardId, Artifact artifact)
+		{
+			if (artifact == null) throw new ArgumentNullException("artifact");
+
+			var board = _context.Boards.Find(boardId);
+			if (board == null) throw new InvalidOperationException();
+
+			artifact.Id = Guid.NewGuid();
+			artifact.Revision = 0;
+			artifact.BoardId = boardId;
+
+			board.Artifacts.Add(artifact);
+
+			_context.SaveChanges();
+			
+			return artifact;
+		}
+
 		public void RenameBoard(Guid boardId, string boardName)
 		{
 			if (string.IsNullOrEmpty(boardName)) throw new InvalidOperationException();

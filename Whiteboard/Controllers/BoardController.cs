@@ -20,7 +20,7 @@ namespace Whiteboard.Controllers
         {
 			if (!id.HasValue) return RedirectToAction("Index", "Home");
 
-			var board = _context.Boards.Find(id);
+			var board = _context.Boards.Include("Artifacts").Where(b => b.Id == id).FirstOrDefault();
 			if (board == null)
 				return HttpNotFound();
 

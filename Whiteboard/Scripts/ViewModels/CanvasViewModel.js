@@ -2,7 +2,8 @@
     var ViewModels = (window.ViewModels = window.ViewModels || {});
 
     ViewModels.CanvasViewModel = function (canvasId) {
-        var $container = $("#" + canvasId),
+        var _self = this,
+            $container = $("#" + canvasId),
             //kinetic setup
             _stage = new Kinetic.Stage({
                 container: canvasId,
@@ -17,6 +18,9 @@
                 draggable: true
             }),
             _cursor,
+
+            //custom events - not sure if there's a better way to do this!
+            _artifactAdded = ko.observable(),
 
             //tools
             _currentTool = ko.observable(ViewModels.CanvasViewModel.Tools.Pen),
@@ -60,8 +64,11 @@
                     var pos = _stage.getUserPosition();
                     var newArtifact = _currentTool().penUp(pos, _artifacts);
 
-                    if (newArtifact)
-                        _artifacts.push(new ViewModels.ArtifactViewModel(newArtifact));
+                    if (newArtifact) {
+                        var vm = new ViewModels.ArtifactViewModel(newArtifact);
+                        _artifactAdded(vm);
+                        _artifacts.push(vm);
+                    }
 
                     _resetCursorLayer();
                 });
@@ -73,7 +80,8 @@
                 var children = _artifacts();
                 for (var i = 0; i < children.length; i++) {
                     (function (item) {
-                        _drawingLayer.add(item.buildShape());
+                        item.attachTo(_drawingLayer);
+                        _drawingLayer.add(item.shape);
                     })(children[i]);
                 }
                 _drawingLayer.draw();
@@ -100,6 +108,7 @@
 
         //public members
         this.artifacts = _artifacts;
+        this.artifactAdded = _artifactAdded;
     };
 
     ViewModels.CanvasViewModel.Tools = {};

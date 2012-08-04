@@ -11,6 +11,7 @@ namespace Whiteboard.Models
 		public Board()
 		{
 			this.BoardEvents = new List<BoardEvent>();
+			this.Artifacts = new List<Artifact>();
 		}
 
 		[Required]
@@ -21,5 +22,7 @@ namespace Whiteboard.Models
 		public string CreatedByUser { get; set; }
 
 		public ICollection<BoardEvent> BoardEvents { get; set; }
+
+		public ICollection<Artifact> Artifacts { get; set; }
 	}
 }

@@ -6,5 +6,6 @@
 /// <reference path="utils.js" />
 /// <reference path="ViewModels/BoardViewModel.js" />
 /// <reference path="ViewModels/CanvasViewModel.js" />
+/// <reference path="ViewModels/ArtifactViewModel.js" />
 /// <reference path="CanvasTools/Pen.js" />
 /// <reference path="kinetic-v3.10.5.js" />
