@@ -86,7 +86,7 @@
            
             //hook up the drag events on the event sink
             _hookUpDragEvents = function () {
-                _eventSink.on("click ", function (e) {
+                _eventSink.on("click dbltap", function (e) {
                     if (_currentTool().click) {
                         var pos = _getCurrentPosition();
                         _handleCreatedArtifact(_currentTool().click(pos, _createEventContext()));
