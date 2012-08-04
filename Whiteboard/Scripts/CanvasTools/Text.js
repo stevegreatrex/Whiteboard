@@ -46,7 +46,8 @@
             color: _color,
             options: [
                 { name: "Color", editor: "color-editor", value: _color },
-                { name: "Font Size", editor: "font-editor", value: _fontSize }
+                { name: "Font Family", editor: "font-family-editor", value: _fontFamily },
+                { name: "Font Size", editor: "font-size-editor", value: _fontSize }
             ]
         };
     })();

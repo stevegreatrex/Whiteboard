@@ -127,7 +127,12 @@
             <button class="btn no-hover-style" data-bind="click: function() { $parent.value($data); }, text: $data"></button>
         </div>
     </script>
-    <script id="font-editor" type="text/html">
-        FONT
+    <script id="font-size-editor" type="text/html">
+        <div class="btn-group" data-bind="foreach: [8, 12, 16, 24, 48, 128]">
+            <button class="btn no-hover-style" data-bind="click: function() { $parent.value($data); }, text: $data"></button>
+        </div>
+    </script>
+    <script id="font-family-editor" type="text/html">
+        <select class="font-picker input-medium" data-bind="options: ['Arial', 'Segoe UI', 'Courier New', 'Georgia', 'Verdana', 'Trebuchet MS'], value: value"></select>
     </script>
 }
