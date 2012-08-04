@@ -5,15 +5,13 @@
 }
 
 @section header {
-    <p class="header-text pull-left" data-bind="text: name, visible: !isEditingName()"></p> 
-    <a class="btn pull-left" data-bind="click: beginEditName, visible: !isEditingName()">
-        <i class="icon-pencil"></i>
-    </a>
-    <form class="pull-left" data-bind="submit: saveName, visible: isEditingName, loadingWhen: saveName.isRunning, enable: isEditingName">
-        <input data-bind="value: name" />
-        <button type="submit" class="btn btn-primary">
-            <i class="icon-ok icon-white"></i>
-        </button>
+    
+    <form class="pull-left form-search board-name-form" data-bind="submit: saveName">
+        <input data-bind="value: name" class="input-medium search-query" />
+        <div data-bind="loadingWhen: saveName.isRunning" class="name-save-marker">
+            <i class="icon-ok icon-white" data-bind="visible: hasSavedName"></i>
+        </div>
+        
     </form>
 
     <div class="pull-left dropdown">

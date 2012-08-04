@@ -19,6 +19,8 @@ namespace Whiteboard.Hubs
 			var board = _context.Boards.Find(boardId);
 			if (board == null) throw new InvalidOperationException();
 
+			if (board.Name == boardName) return;
+
 			var renamedEvent = new BoardEvent { BoardId = board.Id, Description = string.Format("Renamed from {0} to {1}", board.Name, boardName) };
 			if (this.Context.User != null)
 				renamedEvent.User = this.Context.User.Identity.Name;

@@ -6,14 +6,10 @@
         var
             //board name
             _name = ko.observable(boardData.Name),
-            _isEditingName = ko.observable(false),
-            _beginEditName = function () {
-                _isEditingName(true);
-            },
+            _hasSavedName = ko.observable(false),
             _saveName = ko.command(function () {
+                _hasSavedName(true);
                 return hub.renameBoard(boardData.Id, _name());
-            }).done(function () {
-                _isEditingName(false);
             }),
 
             _events = ko.observableArray(),
@@ -24,17 +20,23 @@
             
             //called during construction
             _init = function () {
+                //populate the initial events
                 var eventVms = [];
                 for (var i = 0; i < boardData.BoardEvents.length; i++) {
                     eventVms.push(ko.mapping.fromJS(boardData.BoardEvents[i]));
                 }
                 _events(eventVms);
 
+                //react to board being renamed
                 hub.boardRenamed = function (newName, event) {
-                   _name(newName);
+                    _name(newName);
                    _events.unshift(ko.mapping.fromJS(event));
                    _newEvents(_newEvents() + 1);
                 };
+
+                _name.subscribe(function () {
+                    _saveName();
+                });
             },
             
             //called once the hub is up and running
@@ -46,9 +48,8 @@
 
         //public members
         this.name = _name;
-        this.isEditingName = _isEditingName;
-        this.beginEditName = _beginEditName;
         this.saveName = _saveName;
+        this.hasSavedName = _hasSavedName;
         this.events = _events;
         this.onHubStarted = _onHubStarted;
         this.newEvents = _newEvents;
