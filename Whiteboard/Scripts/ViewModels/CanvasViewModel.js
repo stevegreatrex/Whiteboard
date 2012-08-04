@@ -102,6 +102,11 @@
 
                 //hook up drag events
                 _hookUpDragEvents();
+
+                $(window).resize(function () {
+                    _stage.setSize($container.width(), $container.height());
+                    _redrawArtifacts();
+                });
             };
 
         _init();

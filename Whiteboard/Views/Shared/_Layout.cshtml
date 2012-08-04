@@ -18,13 +18,10 @@
                     <span class="icon-bar"></span>
                     </a>
                     <a class="brand" href="/">Whiteboard</a>
+                    
                     @RenderSection("header", required: false)
+                    @RenderSection("rightheader", required: false)
                     @Html.Partial("_LoginPartial")
-                    <div class="btn-group pull-right">
-                        @Html.ActionLink("New Board", "Create", "Board", null, new { @class = "btn btn-primary" })
-                    </div>
-                    <div class="nav-collapse">
-                    </div><!--/.nav-collapse -->
                 </div>
             </div>
         </div>
