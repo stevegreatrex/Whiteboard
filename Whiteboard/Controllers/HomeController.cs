@@ -17,7 +17,10 @@ namespace Whiteboard.Controllers
 
 			if (Request.IsAuthenticated)
 			{
-				boards = _context.Boards.Where(b => b.CreatedByUser == User.Identity.Name);
+				boards = _context.Boards
+					.Where(b => b.CreatedByUser == User.Identity.Name)
+					.OrderByDescending(b => b.BoardEvents.Max(be => be.Date))
+					.Take(10);
 			}
 
 			return View(boards);
