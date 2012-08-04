@@ -164,11 +164,10 @@
     <Compile Include="Models\BoardEvent.cs" />
     <Compile Include="Models\WhiteboardContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Content Include="Content\glyphicons.css" />
-    <Content Include="Content\images\glyph-icons.png" />
     <Content Include="Scripts\CanvasTools\Ellipse.js" />
     <Content Include="Scripts\CanvasTools\Pan.js" />
     <Content Include="Scripts\CanvasTools\Rect.js" />
+    <Content Include="Scripts\CanvasTools\Text.js" />
     <Content Include="Scripts\kinetic-v3.10.5.js" />
     <Content Include="Scripts\ViewModels\ArtifactViewModel.js" />
   </ItemGroup>

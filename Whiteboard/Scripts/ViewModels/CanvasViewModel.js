@@ -74,36 +74,50 @@
                     stage: _stage
                 }
             },
+
+            _handleCreatedArtifact = function (newArtifact) {
+                if (newArtifact) {
+                    var vm = new ViewModels.ArtifactViewModel(newArtifact);
+                    _artifactAdded(vm);
+                    _artifacts.push(vm);
+                    _localAddedArtifacts.push(vm);
+                }
+            },
            
             //hook up the drag events on the event sink
             _hookUpDragEvents = function () {
+                _eventSink.on("click ", function (e) {
+                    if (_currentTool().click) {
+                        var pos = _getCurrentPosition();
+                        _handleCreatedArtifact(_currentTool().click(pos, _createEventContext()));
+                    }
+                });
+
                 _eventSink.on("dragstart", function (e) {
-                    var pos = _getCurrentPosition();
-                    _cursor.setAlpha(1);
-                    _currentTool().penDown(pos, _createEventContext());
-                    _cursorLayer.draw();
+                    if (_currentTool().penDown) {
+                        var pos = _getCurrentPosition();
+                        _cursor.setAlpha(1);
+                        _currentTool().penDown(pos, _createEventContext());
+                        _cursorLayer.draw();
+                    }
                 });
 
                 _eventSink.on("dragmove", function (e) {
-                    var pos = _getCurrentPosition();
-                    _cursor.setX(pos.x);
-                    _cursor.setY(pos.y);
+                    if (_currentTool().penMove) {
+                        var pos = _getCurrentPosition();
+                        _cursor.setX(pos.x);
+                        _cursor.setY(pos.y);
 
-                    _currentTool().penMove(pos, _createEventContext());
-                    _cursorLayer.draw();
+                        _currentTool().penMove(pos, _createEventContext());
+                        _cursorLayer.draw();
+                    }
                 });
 
                 _eventSink.on("dragend mouseleave", function (e) {
-                    var pos = _getCurrentPosition();
-                    var newArtifact = _currentTool().penUp(pos, _createEventContext());
-
-                    if (newArtifact) {
-                        var vm = new ViewModels.ArtifactViewModel(newArtifact);
-                        _artifactAdded(vm);
-                        _artifacts.push(vm);
-                        _localAddedArtifacts.push(vm);
+                    if (_currentTool().penUp) {
+                        var pos = _getCurrentPosition();
+                        _handleCreatedArtifact(_currentTool().penUp(pos, _createEventContext()));                      
                     }
-
                     _resetCursorLayer();
                 });
             },
@@ -127,6 +141,7 @@
                 _availableTools.push(ViewModels.CanvasViewModel.Tools.Pen);
                 _availableTools.push(ViewModels.CanvasViewModel.Tools.Ellipse);
                 _availableTools.push(ViewModels.CanvasViewModel.Tools.Rect);
+                _availableTools.push(ViewModels.CanvasViewModel.Tools.Text);
             },
 
             //select a tool

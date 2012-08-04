@@ -113,6 +113,10 @@
             $.connection.hub.start({ transport: 'longPolling' }, viewModel.onHubStarted);
         });
     </script>
+
+    <!-- 
+        Templates
+    -->
     <script id="color-editor" type="text/html">
         <div class="btn-group" data-bind="foreach: ['#000', '#808080', '#C0C0C0', '#DCDCDC', '#FFF', /*reds*/ '#f00', '#ff4500', '#fa8072', '#ffa500', '#ffd700', /*greens*/ '#006400', '#228b22','#6b8e23', '#32cd32', '#7cfc00', /*blues*/'#191970', '#0000FF', '#1e90ff', '#87cefa', '#40e0d0']">
             <div class="color-swatch" data-bind="click: function() { $parent.value($data); }, style: { background: $data }"></div>
@@ -122,5 +126,8 @@
         <div class="btn-group" data-bind="foreach: [2, 5, 10, 20]">
             <button class="btn no-hover-style" data-bind="click: function() { $parent.value($data); }, text: $data"></button>
         </div>
+    </script>
+    <script id="font-editor" type="text/html">
+        FONT
     </script>
 }
