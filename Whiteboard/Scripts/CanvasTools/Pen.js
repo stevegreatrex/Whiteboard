@@ -29,15 +29,21 @@
             _size.subscribe(_updateCursor);
             _color.subscribe(_updateCursor);
         },
+
+        //generates the line data for either the temporary or confirmed line
+        _getLineData = function () {
+            return {
+                strokeWidth: _size(),
+                stroke: _color(),
+                points: _currentDrawingPoints,
+                lineCap: "round"
+            }
+        },
         
         //reset the current drawing when the pen goes down
         _penDown = function (pos, cursorLayer) {
             _currentDrawingPoints = [pos];
-            _tempLine = new Kinetic.Line({
-                strokeWidth: _size(),
-                stroke: _color(),
-                points: _currentDrawingPoints
-            });
+            _tempLine = new Kinetic.Line(_getLineData());
             cursorLayer.add(_tempLine);
         },
 
@@ -50,11 +56,7 @@
             if (_currentDrawingPoints.length) {
                 return {
                     Type: "Line",
-                    Data: {
-                        points: _currentDrawingPoints,
-                        strokeWidth: _size(),
-                        stroke: _color()
-                    }
+                    Data: _getLineData()
                 };
             }
         };
