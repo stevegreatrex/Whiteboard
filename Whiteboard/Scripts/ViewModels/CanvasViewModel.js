@@ -149,6 +149,16 @@
                 _currentTool(tool);
             },
 
+            //open an image rendering of the canvas in another window
+            _exportAsImage = function () {
+                _stage.toDataURL({
+                    callback: function (url) {
+                        window.open(url);
+                    }
+                })
+                
+            },
+
             //init
             _init = function () {
                 //prevent selection on the canvas to avoid strange cursors on desktop
@@ -185,6 +195,7 @@
         this.selectTool = _selectTool;
         this.recenter = _recenter;
         this.localAddedArtifacts = _localAddedArtifacts;
+        this.exportAsImage = _exportAsImage;
     };
 
     ViewModels.CanvasViewModel.Tools = {};

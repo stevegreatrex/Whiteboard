@@ -13,7 +13,7 @@
                 return hub.renameBoard(boardData.Id, _name());
             }),
 
-            ///clear board
+            //clear board
             _clearBoard = ko.command(function () {
                 return hub.clearBoard(boardData.Id);
             })
