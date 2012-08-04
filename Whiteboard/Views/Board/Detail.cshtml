@@ -5,8 +5,9 @@
 }
 
 @section header {
+    <!-- Tools -->
     <div class="pull-right dropdown" title="Tools">
-        <a class="btn dropdown-toggle btn-primary" data-toggle="dropdown" href="#">
+        <a class="btn dropdown-toggle btn-primary" data-bind="style: { background: canvas.currentTool().color }" data-toggle="dropdown" href="#">
             <i data-bind="attr: { class: canvas.currentTool().icon + ' icon-white' }"></i>
             <span class="caret"></span>
         </a>
@@ -25,7 +26,7 @@
         </ul>
     </div>
 
-
+    <!-- Board Settings -->
     <div class="pull-right dropdown" title="Board Settings">
         <a class="btn dropdown-toggle btn-inverse" data-toggle="dropdown" href="#">
             <i class="icon-wrench icon-white"></i>
@@ -64,6 +65,7 @@
         </ul>
     </div>
 
+    <!-- Events -->
     <div class="pull-right dropdown" title="Board Events">
         <a class="btn dropdown-toggle btn-inverse" data-toggle="dropdown" href="#" data-bind="click: clearNewEvents">
             <strong data-bind="visible: newEvents, text: newEvents"></strong>
@@ -106,7 +108,9 @@
         });
     </script>
     <script id="color-editor" type="text/html">
-
+        <div class="btn-group" data-bind="foreach: ['#000', '#808080', '#C0C0C0', '#DCDCDC', '#FFF', /*reds*/ '#f00', '#ff4500', '#fa8072', '#ffa500', '#ffd700', /*greens*/ '#006400', '#228b22','#6b8e23', '#32cd32', '#7cfc00', /*blues*/'#191970', '#0000FF', '#1e90ff', '#87cefa', '#40e0d0']">
+            <div class="color-swatch" data-bind="click: function() { $parent.value($data); }, style: { background: $data }"></div>
+        </div>
     </script>
     <script id="pen-size-editor" type="text/html">
         <div class="btn-group" data-bind="foreach: [2, 5, 10, 20]">

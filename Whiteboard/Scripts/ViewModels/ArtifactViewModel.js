@@ -28,7 +28,7 @@
 			//save this artifact
 			_save = ko.command(function (boardHub, boardId) {
 				//indicate visually that we're saving
-				_shape.setAlpha(0.2);
+				_shape.setAlpha(0.5);
 				_redraw();
 
 				//we have to send the data to the server as a string

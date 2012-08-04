@@ -45,7 +45,7 @@ namespace Whiteboard.Hubs
 			if (board == null) throw new InvalidOperationException();
 
 			artifact.Id = Guid.NewGuid();
-			artifact.Revision = 0;
+			artifact.Revision = _context.Artifacts.Where(a => a.BoardId == boardId).Select(a => a.Revision).Max() + 1;
 			artifact.BoardId = boardId;
 
 			var artifactEvent = new BoardEvent { BoardId = board.Id, Description = "Drawing Updated" };

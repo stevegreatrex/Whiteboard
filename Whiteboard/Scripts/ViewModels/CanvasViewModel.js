@@ -92,7 +92,7 @@
                     _cursorLayer.draw();
                 });
 
-                _eventSink.on("dragend", function (e) {
+                _eventSink.on("dragend mouseleave", function (e) {
                     var pos = _getCurrentPosition();
                     var newArtifact = _currentTool().penUp(pos, _createEventContext());
 
