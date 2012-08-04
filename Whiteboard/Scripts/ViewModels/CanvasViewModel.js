@@ -126,6 +126,7 @@
                 _availableTools.push(ViewModels.CanvasViewModel.Tools.Pan);
                 _availableTools.push(ViewModels.CanvasViewModel.Tools.Pen);
                 _availableTools.push(ViewModels.CanvasViewModel.Tools.Ellipse);
+                _availableTools.push(ViewModels.CanvasViewModel.Tools.Rect);
             },
 
             //select a tool
