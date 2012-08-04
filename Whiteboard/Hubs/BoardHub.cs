@@ -13,6 +13,29 @@ namespace Whiteboard.Hubs
 		private WhiteboardContext _context = new WhiteboardContext();
 
 		/// <summary>
+		/// Remove an artifact from it's board
+		/// </summary>
+		/// <param name="artifactId"></param>
+		public void RemoveArtifact(Guid artifactId)
+		{
+			var artifact = _context.Artifacts.Find(artifactId);
+			if (artifactId == null) throw new InvalidOperationException();
+
+			_context.Artifacts.Remove(artifact);
+
+			
+			var artifactEvent = new BoardEvent { BoardId = artifact.BoardId, Description = "Removed Drawing Artifact" };
+			if (this.Context.User != null)
+				artifactEvent.User = this.Context.User.Identity.Name;
+
+			_context.BoardEvents.Add(artifactEvent);
+
+			_context.SaveChanges();
+
+			Clients[artifactEvent.BoardId.ToString()].artifactRemoved(artifactId, artifactEvent);
+		}
+
+		/// <summary>
 		/// Clears a board
 		/// </summary>
 		/// <param name="boardId"></param>

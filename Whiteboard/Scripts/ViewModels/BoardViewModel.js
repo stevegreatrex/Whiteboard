@@ -19,7 +19,21 @@
             })
             .done(function () {
                 canvas.artifacts.removeAll();
-            });
+            }),
+
+            //undo a local change
+            _undo = ko.command({
+                action: function () {
+                    var toRemove = canvas.localAddedArtifacts.slice(canvas.localAddedArtifacts().length - 1);
+                    return hub.removeArtifact(toRemove[0].artifact().Id);
+                },
+                canExecute: ko.computed(function () {
+                    return this.localAddedArtifacts().length > 0;
+                }, canvas)
+            }).done(function () {
+                var removed = canvas.localAddedArtifacts.pop();
+                canvas.artifacts.remove(removed);
+            }),
 
             //events
             _events = ko.observableArray(),
@@ -73,6 +87,12 @@
                     canvas.artifacts.removeAll();
                     _recordEvent(event);
                 };
+
+                //artifact being removed
+                hub.artifactRemoved = function (artifactId, event) {
+                    canvas.artifacts.remove(function (artifactVM) { return artifactVM.artifact().Id === artifactId; });
+                    _recordEvent(event);
+                };
             },
             
             //called during construction
@@ -111,6 +131,7 @@
         this.clearNewEvents = _clearNewEvents;
         this.clearBoard = _clearBoard;
         this.canvas = canvas;
+        this.undo = _undo;
     };
 
 })(jQuery, ko, window);

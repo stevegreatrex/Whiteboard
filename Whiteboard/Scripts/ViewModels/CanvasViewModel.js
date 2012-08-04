@@ -28,6 +28,7 @@
 
             //artifacts
             _artifacts = ko.observableArray(),
+            _localAddedArtifacts = ko.observableArray(),
 
             //re-centers the view
             _recenter = function () {
@@ -100,6 +101,7 @@
                         var vm = new ViewModels.ArtifactViewModel(newArtifact);
                         _artifactAdded(vm);
                         _artifacts.push(vm);
+                        _localAddedArtifacts.push(vm);
                     }
 
                     _resetCursorLayer();
@@ -165,6 +167,7 @@
         this.currentTool = _currentTool;
         this.selectTool = _selectTool;
         this.recenter = _recenter;
+        this.localAddedArtifacts = _localAddedArtifacts;
     };
 
     ViewModels.CanvasViewModel.Tools = {};
