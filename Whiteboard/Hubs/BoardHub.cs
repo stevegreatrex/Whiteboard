@@ -12,6 +12,31 @@ namespace Whiteboard.Hubs
 	{
 		private WhiteboardContext _context = new WhiteboardContext();
 
+		/// <summary>
+		/// Clears a board
+		/// </summary>
+		/// <param name="boardId"></param>
+		public void ClearBoard(Guid boardId)
+		{
+			_context.Artifacts.Where(a => a.BoardId == boardId)
+				.ToList().ForEach(a => _context.Artifacts.Remove(a));
+			
+			var clearedEvent = new BoardEvent { BoardId = boardId, Description = "Cleared" };
+			if (this.Context.User != null)
+				clearedEvent.User = this.Context.User.Identity.Name;
+			_context.BoardEvents.Add(clearedEvent);
+
+			_context.SaveChanges();
+
+			Clients[boardId.ToString()].boardCleared(clearedEvent);
+		}
+
+		/// <summary>
+		/// Add a new artifact to a board
+		/// </summary>
+		/// <param name="boardId"></param>
+		/// <param name="artifact"></param>
+		/// <returns></returns>
 		public Artifact AddArtifact(Guid boardId, Artifact artifact)
 		{
 			if (artifact == null) throw new ArgumentNullException("artifact");
@@ -37,6 +62,11 @@ namespace Whiteboard.Hubs
 			return artifact;
 		}
 
+		/// <summary>
+		/// Rename a board
+		/// </summary>
+		/// <param name="boardId"></param>
+		/// <param name="boardName"></param>
 		public void RenameBoard(Guid boardId, string boardName)
 		{
 			if (string.IsNullOrEmpty(boardName)) throw new InvalidOperationException();
@@ -58,6 +88,10 @@ namespace Whiteboard.Hubs
 			Clients[boardId.ToString()].boardRenamed(boardName, renamedEvent);
 		}
 
+		/// <summary>
+		/// Join a board
+		/// </summary>
+		/// <param name="boardId"></param>
 		public void Join(Guid boardId)
 		{
 			Groups.Add(Context.ConnectionId, boardId.ToString());

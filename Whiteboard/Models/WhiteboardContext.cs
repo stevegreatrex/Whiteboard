@@ -20,5 +20,7 @@ namespace Whiteboard.Models
 		public DbSet<Board> Boards { get; set; }
 
 		public DbSet<BoardEvent> BoardEvents { get; set; }
+
+		public DbSet<Artifact> Artifacts { get; set; }
 	}
 }

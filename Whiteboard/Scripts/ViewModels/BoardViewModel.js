@@ -13,6 +13,14 @@
                 return hub.renameBoard(boardData.Id, _name());
             }),
 
+            ///clear board
+            _clearBoard = ko.command(function () {
+                return hub.clearBoard(boardData.Id);
+            })
+            .done(function () {
+                canvas.artifacts.removeAll();
+            });
+
             //events
             _events = ko.observableArray(),
             _newEvents = ko.observable(0),
@@ -53,8 +61,15 @@
                     _recordEvent(event);
                 };
 
+                //artifact being added
                 hub.artifactAdded = function (artifact, event) {
                     canvas.artifacts.push(new ViewModels.ArtifactViewModel(artifact));
+                    _recordEvent(event);
+                };
+
+                //board being cleared
+                hub.boardCleared = function (event) {
+                    canvas.artifacts.removeAll();
                     _recordEvent(event);
                 };
             },
@@ -93,6 +108,7 @@
         this.onHubStarted = _onHubStarted;
         this.newEvents = _newEvents;
         this.clearNewEvents = _clearNewEvents;
+        this.clearBoard = _clearBoard;
     };
 
 })(jQuery, ko, window);

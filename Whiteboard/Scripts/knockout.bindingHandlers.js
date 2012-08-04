@@ -37,3 +37,49 @@
 		}
 	}
 };
+
+ko.bindingHandlers.confirmDeleteButton = {
+    init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+        var value = valueAccessor(),
+			$element = $(element)
+				.click(function () {
+				    $element.hide();
+				    $warning.show();
+				    $confirm.show();
+				    $cancel.show();
+				    return false;
+				}),
+			$confirm = $("<a />")
+				.text(value.confirmCaption || "Confirm")
+				.addClass("btn btn-danger btn-mini confirm-button")
+				.hide()
+				.click(function (event) {
+				    value.action.call(this, viewModel, event);
+				    $cancel.hide();
+				    $warning.hide();
+				    $confirm.hide();
+				    $element.show();
+				}),
+			$cancel = $("<a>Cancel</a>")
+				.addClass("btn btn-mini cancel-button")
+				.hide()
+				.click(function () {
+				    $cancel.hide();
+				    $warning.hide();
+				    $confirm.hide();
+				    $element.show();
+				    return false;
+				}),
+			$warning = $("<p/>")
+				.addClass("warning-message")
+				.hide();
+
+        $element.after($cancel);
+        $element.after($confirm);
+
+        if (value.warning) {
+            $warning.text(value.warning);
+            $element.after($warning);
+        }
+    }
+};

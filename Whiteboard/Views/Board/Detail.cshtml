@@ -12,6 +12,13 @@
             <span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
+            <li class="nav-header">Tools</li>
+            <li>
+                <a href="#" data-bind="confirmDeleteButton: { action: clearBoard }">
+                    <i class="icon-fire"></i>
+                    Reset Board
+                </a>
+            </li>
             <li class="nav-header">Board Actions</li>
             <li>
                  <a title="Email Board Link" href="mailto:?subject=Whiteboard%20Link&body=Come%20join%20my%20Whiteboard%20at%20@(Request.Url.AbsoluteUri)">
@@ -19,7 +26,6 @@
                      Email link to this board
                 </a>
             </li>
-            <li class="divider"></li>
             <li class="nav-header">Rename Board</li>
             <li>
                 <form class="pull-left form-search board-name-form" data-bind="submit: saveName">
