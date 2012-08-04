@@ -5,3 +5,5 @@
 /// <reference path="modernizr-2.0.6-development-only.js" />
 /// <reference path="utils.js" />
 /// <reference path="ViewModels/BoardViewModel.js" />
+/// <reference path="ViewModels/CanvasViewModel.js" />
+/// <reference path="kinetic-v3.9.1.js" />

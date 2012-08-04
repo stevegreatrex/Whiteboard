@@ -222,6 +222,10 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js">
       <DependentUpon>jquery.validate.unobtrusive.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\kinetic-v3.9.1.js" />
+    <Content Include="Scripts\kinetic-v3.9.1.min.js">
+      <DependentUpon>kinetic-v3.9.1.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\knockout-2.1.0.debug.js" />
     <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\knockout.mapping-latest.debug.js" />
@@ -236,6 +240,7 @@
       <DependentUpon>utils.js</DependentUpon>
     </Content>
     <Content Include="Scripts\ViewModels\BoardViewModel.js" />
+    <Content Include="Scripts\ViewModels\CanvasViewModel.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

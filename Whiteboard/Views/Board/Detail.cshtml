@@ -5,7 +5,6 @@
 }
 
 @section header {
-    
     <form class="pull-left form-search board-name-form" data-bind="submit: saveName">
         <input data-bind="value: name" class="input-medium search-query" placeholder="Unnamed Board" />
         <div data-bind="loadingWhen: saveName.isRunning" class="name-save-marker">
@@ -31,15 +30,18 @@
             </li>
         </ul>
     </div>
-    
 }
 
+<div id="canvas-container">
+
+</div>
 
 @section scripts {
     @Scripts.Render("~/bundles/moment")
     @Scripts.Render("~/bundles/knockout")
     @Scripts.Render("~/bundles/viewmodels")
     @Scripts.Render("~/bundles/signalr")
+    @Scripts.Render("~/bundles/kinetic")
     <script src="@Url.Content("~/signalr/hubs")" type="text/javascript"></script>
     <script>
         var initialData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(this.Model));
@@ -48,6 +50,7 @@
             var hub = $.connection.boardHub;
             
             var viewModel = new ViewModels.BoardViewModel(hub, initialData);
+            var canvas = new ViewModels.CanvasViewModel("canvas-container");
             ko.applyBindings(viewModel);
             
             //note: using longPolling to work around bug 510 (https://github.com/SignalR/SignalR/issues/510) when working on Azure
