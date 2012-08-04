@@ -51,7 +51,7 @@ ko.bindingHandlers.confirmDeleteButton = {
 				}),
 			$confirm = $("<a />")
 				.text(value.confirmCaption || "Confirm")
-				.addClass("btn btn-danger btn-mini confirm-button")
+				.addClass("btn btn-danger btn-mini confirm-button no-hover-style")
 				.hide()
 				.click(function (event) {
 				    value.action.call(this, viewModel, event);
@@ -61,7 +61,7 @@ ko.bindingHandlers.confirmDeleteButton = {
 				    $element.show();
 				}),
 			$cancel = $("<a>Cancel</a>")
-				.addClass("btn btn-mini cancel-button")
+				.addClass("btn btn-mini cancel-button no-hover-style")
 				.hide()
 				.click(function () {
 				    $cancel.hide();

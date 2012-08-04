@@ -69,7 +69,11 @@
             penMove: _penMove,
             penUp: _penUp,
             icon: "icon-pencil",
-            name: "Pen Tool"
+            name: "Pen Tool",
+            options: [
+                { name: "Color", editor: "color-editor", value: _color },
+                { name: "Pen Size", editor: "pen-size-editor", value: _size }
+            ]
         };
     })();
 })(ViewModels.CanvasViewModel.Tools);
