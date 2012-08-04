@@ -7,14 +7,17 @@
 @section header {
     
     <form class="pull-left form-search board-name-form" data-bind="submit: saveName">
-        <input data-bind="value: name" class="input-medium search-query" />
+        <input data-bind="value: name" class="input-medium search-query" placeholder="Unnamed Board" />
         <div data-bind="loadingWhen: saveName.isRunning" class="name-save-marker">
             <i class="icon-ok icon-white" data-bind="visible: hasSavedName"></i>
         </div>
-        
     </form>
 
-    <div class="pull-left dropdown">
+    <a class="btn pull-left btn-info" title="Email Board Link" href="mailto:?subject=Whiteboard%20Link&body=Come%20join%20my%20Whiteboard%20at%20@(Request.Url.AbsoluteUri)">
+        <i class="icon-envelope icon-white"></i>
+    </a>
+
+    <div class="pull-left dropdown" title="Board Events">
         <a class="btn dropdown-toggle btn-inverse" data-toggle="dropdown" href="#" data-bind="click: clearNewEvents">
             <strong data-bind="visible: newEvents, text: newEvents"></strong>
             <i class="icon-flag icon-white"></i>
