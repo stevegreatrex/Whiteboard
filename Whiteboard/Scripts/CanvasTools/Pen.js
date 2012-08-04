@@ -67,7 +67,9 @@
             cursor: _cursor,
             penDown: _penDown,
             penMove: _penMove,
-            penUp: _penUp
+            penUp: _penUp,
+            icon: "icon-pencil",
+            name: "Pen Tool"
         };
     })();
 })(ViewModels.CanvasViewModel.Tools);

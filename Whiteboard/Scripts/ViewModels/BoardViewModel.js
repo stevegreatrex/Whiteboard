@@ -109,6 +109,7 @@
         this.newEvents = _newEvents;
         this.clearNewEvents = _clearNewEvents;
         this.clearBoard = _clearBoard;
+        this.canvas = canvas;
     };
 
 })(jQuery, ko, window);

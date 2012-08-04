@@ -23,6 +23,7 @@
             _artifactAdded = ko.observable(),
 
             //tools
+            _availableTools = ko.observableArray(),
             _currentTool = ko.observable(ViewModels.CanvasViewModel.Tools.Pen),
 
             //artifacts
@@ -34,8 +35,11 @@
 
                 _cursor = _currentTool().cursor;
 
+                var drawingOffset = _drawingLayer.getOffset();
+
                 _eventSink.setX(0);
                 _eventSink.setY(0);
+                _eventSink.setOffset(-drawingOffset.x, -drawingOffset.y); //make sure that the even sink always covers the screen
                 _cursor.setAlpha(0);
                 _cursorLayer.add(_cursor);
                 _cursorLayer.add(_eventSink);
@@ -46,19 +50,29 @@
             _createEventContext = function () {
                 return {
                     cursorLayer: _cursorLayer,
-                    drawingLayer: _drawingLayer
+                    drawingLayer: _drawingLayer,
+                    stage: _stage
                 }
+            },
+            _getCurrentPosition = function () {
+                var pos = _stage.getUserPosition(),
+                    currentOffset = _drawingLayer.getOffset();
+
+                return {
+                    x: pos.x + currentOffset.x,
+                    y: pos.y + currentOffset.y
+                };
             },
             _hookUpDragEvents = function () {
                 _eventSink.on("dragstart", function (e) {
-                    var pos = _stage.getUserPosition();
+                    var pos = _getCurrentPosition();
                     _cursor.setAlpha(1);
                     _currentTool().penDown(pos, _createEventContext());
                     _cursorLayer.draw();
                 });
 
                 _eventSink.on("dragmove", function (e) {
-                    var pos = _stage.getUserPosition();
+                    var pos = _getCurrentPosition();
                     _cursor.setX(pos.x);
                     _cursor.setY(pos.y);
 
@@ -67,8 +81,8 @@
                 });
 
                 _eventSink.on("dragend", function (e) {
-                    var pos = _stage.getUserPosition();
-                    var newArtifact = _currentTool().penUp(pos, _artifacts);
+                    var pos = _getCurrentPosition();
+                    var newArtifact = _currentTool().penUp(pos, _createEventContext());
 
                     if (newArtifact) {
                         var vm = new ViewModels.ArtifactViewModel(newArtifact);
@@ -93,6 +107,17 @@
                 _drawingLayer.draw();
             },
 
+            //populate the available tools
+            _loadTools = function () {
+                _availableTools.push(ViewModels.CanvasViewModel.Tools.Pan);
+                _availableTools.push(ViewModels.CanvasViewModel.Tools.Pen);
+            },
+
+            //select a tool
+            _selectTool = function (tool) {
+                _currentTool(tool);
+            },
+
             //init
             _init = function () {
                 //prevent selection on the canvas to avoid strange cursors on desktop
@@ -109,10 +134,14 @@
                 //hook up drag events
                 _hookUpDragEvents();
 
+                //handle window resizing
                 $(window).resize(function () {
                     _stage.setSize($container.width(), $container.height());
                     _redrawArtifacts();
                 });
+
+                //load tools
+                _loadTools();
             };
 
         _init();
@@ -120,6 +149,9 @@
         //public members
         this.artifacts = _artifacts;
         this.artifactAdded = _artifactAdded;
+        this.availableTools = _availableTools;
+        this.currentTool = _currentTool;
+        this.selectTool = _selectTool;
     };
 
     ViewModels.CanvasViewModel.Tools = {};

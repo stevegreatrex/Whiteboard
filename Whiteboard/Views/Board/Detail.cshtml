@@ -5,9 +5,26 @@
 }
 
 @section header {
-    
     <div class="pull-right dropdown" title="Tools">
         <a class="btn dropdown-toggle btn-primary" data-toggle="dropdown" href="#">
+            <i data-bind="attr: { class: canvas.currentTool().icon + ' icon-white' }"></i>
+            <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+            <li class="nav-header">Tools</li>
+            <li>
+                <div data-bind="foreach: canvas.availableTools">
+                    <a href="#" class="btn" data-bind="click: $parent.canvas.selectTool">
+                        <i data-bind="attr: { class: icon }"></i>
+                    </a>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+
+    <div class="pull-right dropdown" title="Board Settings">
+        <a class="btn dropdown-toggle btn-inverse" data-toggle="dropdown" href="#">
             <i class="icon-wrench icon-white"></i>
             <span class="caret"></span>
         </a>
@@ -29,12 +46,12 @@
             <li class="nav-header">Rename Board</li>
             <li>
                 <form class="pull-left form-search board-name-form" data-bind="submit: saveName">
-                <input data-bind="value: name" class="" placeholder="Unnamed Board" />
-                <div data-bind="loadingWhen: saveName.isRunning" class="name-save-marker">
-                    <i class="icon-ok" data-bind="visible: hasSavedName"></i>
-                </div>
+                    <input data-bind="value: name" class="" placeholder="Unnamed Board" />
+                    <div data-bind="loadingWhen: saveName.isRunning" class="name-save-marker">
+                        <i class="icon-ok" data-bind="visible: hasSavedName"></i>
+                    </div>
+                </form>
             </li>
-        </form>
         </ul>
     </div>
 

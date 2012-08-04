@@ -15,20 +15,32 @@
         },
 
         _penDown = function (pos, context) {
-            var currentOffset = context.drawingLayer.getOffset();
-            _startPosition = { x: pos.x + currentOffset.x, y: pos.y + currentOffset.y };
+            _startPosition = pos;
         },
 
         //save each point in the current drawing
         //and put a dot at the point where it was 
         _penMove = function (pos, context) {
             if (_startPosition) {
-                context.cursorLayer.setOffset(_startPosition.x - pos.x, _startPosition.y - pos.y);
-                context.drawingLayer.setOffset(_startPosition.x - pos.x, _startPosition.y - pos.y);
+                var currentOffset = context.drawingLayer.getOffset(),
+                    targetOffset = {
+                        x: currentOffset.x + _startPosition.x - pos.x,
+                        y: currentOffset.y + _startPosition.y - pos.y
+                    };
+                context.cursorLayer.setOffset(targetOffset);
+                context.drawingLayer.setOffset(targetOffset);
                 context.drawingLayer.draw();
             }
         },
-        _penUp = function (pos) {
+        _penUp = function (pos, context) {
+            var finalOffset = context.drawingLayer.getOffset(),
+                finalWidth = context.stage.getWidth() + Math.abs(finalOffset.x),
+                finalHeight = context.stage.getHeight() + Math.abs(finalOffset.y);
+
+            context.stage.setSize(finalWidth, finalHeight);
+            //context.cursorLayer.setSize(finalWidth, finalHeight);
+            //context.drawingLayer.setSize(finalWidth, finalHeight);
+            
             _startPosition = null;
         };
 
@@ -38,7 +50,9 @@
             cursor: _cursor,
             penDown: _penDown,
             penMove: _penMove,
-            penUp: _penUp
+            penUp: _penUp,
+            icon: "icon-move",
+            name: "Pan Tool"
         };
     })();
 })(ViewModels.CanvasViewModel.Tools);
