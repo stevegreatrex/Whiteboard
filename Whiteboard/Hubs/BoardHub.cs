@@ -23,9 +23,16 @@ namespace Whiteboard.Hubs
 			artifact.Revision = 0;
 			artifact.BoardId = boardId;
 
+			var artifactEvent = new BoardEvent { BoardId = board.Id, Description = "Drawing Updated" };
+			if (this.Context.User != null)
+				artifactEvent.User = this.Context.User.Identity.Name;
+
 			board.Artifacts.Add(artifact);
+			board.BoardEvents.Add(artifactEvent);
 
 			_context.SaveChanges();
+
+			Clients[boardId.ToString()].artifactAdded(artifact, artifactEvent);
 			
 			return artifact;
 		}

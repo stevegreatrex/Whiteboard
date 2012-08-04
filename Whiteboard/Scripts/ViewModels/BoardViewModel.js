@@ -21,7 +21,7 @@
             },
              
             //populate the initial events
-            _populateEvents = function() {
+            _populateEventsFromInitialData = function() {
                 var eventVms = [];
                 for (var i = 0; i < boardData.BoardEvents.length; i++) {
                     eventVms.push(ko.mapping.fromJS(boardData.BoardEvents[i]));
@@ -30,25 +30,42 @@
             },
 
             //populate the initial artifacts
-            _populateArtifacts = function() {
+            _populateArtifactsFromInitialData = function() {
                 var artifactVms = [];
                 for (var i = 0; i < boardData.Artifacts.length; i++) {
                     artifactVms.push(new ViewModels.ArtifactViewModel(boardData.Artifacts[i]));
                 }
                 canvas.artifacts(artifactVms);
             },
-            
-            //called during construction
-            _init = function () {
-                _populateEvents();
-                _populateArtifacts();
+
+            //update the event list with a new server event
+            _recordEvent = function (event) {
+                _events.unshift(ko.mapping.fromJS(event));
+                _newEvents(_newEvents() + 1);
+            },
+
+            //hook up signalr event listeners
+            _hookUpServerEventListeners = function () {
 
                 //react to board being renamed
                 hub.boardRenamed = function (newName, event) {
                     _name(newName);
-                   _events.unshift(ko.mapping.fromJS(event));
-                   _newEvents(_newEvents() + 1);
+                    _recordEvent(event);
                 };
+
+                hub.artifactAdded = function (artifact, event) {
+                    canvas.artifacts.push(new ViewModels.ArtifactViewModel(artifact));
+                    _recordEvent(event);
+                };
+            },
+            
+            //called during construction
+            _init = function () {
+                _populateEventsFromInitialData();
+                _populateArtifactsFromInitialData();
+
+                _hookUpServerEventListeners();
+                
 
                 //save the name when it is updated
                 _name.subscribe(function () {
