@@ -25,7 +25,8 @@ namespace Whiteboard
 			bundles.Add(new ScriptBundle("~/bundles/viewmodels").Include(
 						"~/Scripts/api.js",
 						"~/Scripts/utils*",
-						"~/Scripts/ViewModels/*.js"));
+						"~/Scripts/ViewModels/*.js",
+						"~/Scripts/CanvasTools/*.js"));
 
 			bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
 						"~/Scripts/modernizr-*"));
