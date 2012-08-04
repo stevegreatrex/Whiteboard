@@ -38,32 +38,18 @@ namespace Whiteboard.Controllers
 
         public ActionResult Create()
         {
-            return View();
-        }
-
-        //
-        // POST: /Board/Create
-
-        [HttpPost]
-        public ActionResult Create(Board board)
-        {
-            if (ModelState.IsValid)
-            {
-                board.Id = Guid.NewGuid();
-				var createdEvent = new BoardEvent { BoardId = board.Id, Description = "Created " + board.Name };
-				board.BoardEvents.Add(createdEvent);
-				if (Request.IsAuthenticated)
-				{
-					board.CreatedByUser = User.Identity.Name;
-					createdEvent.User = User.Identity.Name;
-				}
-				
-                _context.Boards.Add(board);
-                _context.SaveChanges();
-				return RedirectToAction("Detail", new { id = board.Id });
-            }
-
-            return View(board);
+			var board = new Board();
+			board.Id = Guid.NewGuid();
+			var createdEvent = new BoardEvent { BoardId = board.Id, Description = "Created " + board.Name };
+			board.BoardEvents.Add(createdEvent);
+			if (Request.IsAuthenticated)
+			{
+				board.CreatedByUser = User.Identity.Name;
+				createdEvent.User = User.Identity.Name;
+			}
+			_context.Boards.Add(board);
+			_context.SaveChanges();
+			return RedirectToAction("Detail", new { id = board.Id });
         }
 
         protected override void Dispose(bool disposing)

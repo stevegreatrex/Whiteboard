@@ -259,7 +259,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Board\Detail.cshtml" />
-    <Content Include="Views\Board\Create.cshtml" />
     <Content Include="Views\Shared\_MyBoards.cshtml" />
     <Content Include="Scripts\knockout.bindingHandlers.js" />
   </ItemGroup>

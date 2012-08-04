@@ -5,7 +5,12 @@
 {
     <ul class="nav nav-pills nav-stacked">
         @foreach (var item in Model) {
-            <li>@Html.ActionLink(item.Name, "Detail", "Board", new { id = item.Id }, null)</li>
+            var name = string.IsNullOrEmpty(item.Name) ? "(Unnamed Board)" : item.Name;
+            <li>@Html.ActionLink(name, "Detail", "Board", new { id = item.Id }, null)</li>
+        }
+        @if (Model.Count() == 0)
+        {
+            <p>You have not created any boards yet</p>
         }
     </ul>
 } else {
