@@ -5,15 +5,33 @@
 }
 
 @section header {
-        <form class="pull-left form-search board-name-form" data-bind="submit: saveName">
-            <input data-bind="value: name" class="input-medium search-query" placeholder="Unnamed Board" />
-            <div data-bind="loadingWhen: saveName.isRunning" class="name-save-marker">
-                <i class="icon-ok icon-white" data-bind="visible: hasSavedName"></i>
-            </div>
+    
+    <div class="pull-right dropdown" title="Tools">
+        <a class="btn dropdown-toggle btn-primary" data-toggle="dropdown" href="#">
+            <i class="icon-wrench icon-white"></i>
+            <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+            <li class="nav-header">Board Actions</li>
+            <li>
+                 <a title="Email Board Link" href="mailto:?subject=Whiteboard%20Link&body=Come%20join%20my%20Whiteboard%20at%20@(Request.Url.AbsoluteUri)">
+                    <i class="icon-envelope"></i>
+                     Email link to this board
+                </a>
+            </li>
+            <li class="divider"></li>
+            <li class="nav-header">Rename Board</li>
+            <li>
+                <form class="pull-left form-search board-name-form" data-bind="submit: saveName">
+                <input data-bind="value: name" class="" placeholder="Unnamed Board" />
+                <div data-bind="loadingWhen: saveName.isRunning" class="name-save-marker">
+                    <i class="icon-ok" data-bind="visible: hasSavedName"></i>
+                </div>
+            </li>
         </form>
-}
+        </ul>
+    </div>
 
-@section rightheader {
     <div class="pull-right dropdown" title="Board Events">
         <a class="btn dropdown-toggle btn-inverse" data-toggle="dropdown" href="#" data-bind="click: clearNewEvents">
             <strong data-bind="visible: newEvents, text: newEvents"></strong>
@@ -25,21 +43,6 @@
                 <h5 data-bind="text: Description"></h5>
                 <p data-bind="text: moment.utc(Date()).local().fromNow()" class="date"></p>
                 <p data-bind="text: User || '(Anonymous}'" class="username"></p>
-            </li>
-        </ul>
-    </div>
-    <div class="pull-right dropdown" title="Tools">
-        <a class="btn dropdown-toggle btn-inverse" data-toggle="dropdown" href="#">
-            <i class="icon-wrench icon-white"></i>
-            <span class="caret"></span>
-        </a>
-        <ul class="dropdown-menu">
-            <li class="nav-header">Board Actions</li>
-            <li>
-                 <a title="Email Board Link" href="mailto:?subject=Whiteboard%20Link&body=Come%20join%20my%20Whiteboard%20at%20@(Request.Url.AbsoluteUri)">
-                    <i class="icon-envelope"></i>
-                     Email link to this board
-                </a>
             </li>
         </ul>
     </div>
