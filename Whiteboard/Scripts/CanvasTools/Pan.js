@@ -33,13 +33,6 @@
             }
         },
         _penUp = function (pos, context) {
-            var finalOffset = context.drawingLayer.getOffset(),
-                finalWidth = context.stage.getWidth() + Math.abs(finalOffset.x),
-                finalHeight = context.stage.getHeight() + Math.abs(finalOffset.y);
-
-            //resize the stage so we can now draw outside the original boundaries
-            context.stage.setSize(finalWidth, finalHeight);
-            
             _startPosition = null;
         };
 
