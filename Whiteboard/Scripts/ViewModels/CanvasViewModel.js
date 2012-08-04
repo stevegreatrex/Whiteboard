@@ -43,11 +43,17 @@
             },
 
             //hook up the drag events on the event sink
+            _createEventContext = function () {
+                return {
+                    cursorLayer: _cursorLayer,
+                    drawingLayer: _drawingLayer
+                }
+            },
             _hookUpDragEvents = function () {
                 _eventSink.on("dragstart", function (e) {
                     var pos = _stage.getUserPosition();
                     _cursor.setAlpha(1);
-                    _currentTool().penDown(pos, _cursorLayer);
+                    _currentTool().penDown(pos, _createEventContext());
                     _cursorLayer.draw();
                 });
 
@@ -56,7 +62,7 @@
                     _cursor.setX(pos.x);
                     _cursor.setY(pos.y);
 
-                    _currentTool().penMove(pos, _cursorLayer);
+                    _currentTool().penMove(pos, _createEventContext());
                     _cursorLayer.draw();
                 });
 
