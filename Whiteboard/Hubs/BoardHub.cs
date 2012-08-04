@@ -21,7 +21,7 @@ namespace Whiteboard.Hubs
 			_context.Artifacts.Where(a => a.BoardId == boardId)
 				.ToList().ForEach(a => _context.Artifacts.Remove(a));
 			
-			var clearedEvent = new BoardEvent { BoardId = boardId, Description = "Cleared" };
+			var clearedEvent = new BoardEvent { BoardId = boardId, Description = "Cleared Board" };
 			if (this.Context.User != null)
 				clearedEvent.User = this.Context.User.Identity.Name;
 			_context.BoardEvents.Add(clearedEvent);

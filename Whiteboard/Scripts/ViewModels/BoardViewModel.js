@@ -49,6 +49,7 @@
             //update the event list with a new server event
             _recordEvent = function (event) {
                 _events.unshift(ko.mapping.fromJS(event));
+                _events.splice(5);
                 _newEvents(_newEvents() + 1);
             },
 
