@@ -58,7 +58,7 @@
 
             //get the current position of the mouse/touch, taking offset into account
             _getCurrentPosition = function () {
-                 var pos = _stage.getUserPosition(),
+                var pos = _stage.getUserPosition() || { x: 0, y: 0 },
                      currentOffset = _drawingLayer.getOffset();
 
                  return {
