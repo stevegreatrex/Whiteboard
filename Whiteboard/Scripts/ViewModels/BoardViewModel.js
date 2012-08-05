@@ -113,6 +113,7 @@
                     added.save(hub, boardData.Id);
                 });
 
+                //react to image data being pasted (chrome only)
                 $(window).pasteImageReader(function (data) {
                     canvas.addNewArtifact({
                         Type: "Image",

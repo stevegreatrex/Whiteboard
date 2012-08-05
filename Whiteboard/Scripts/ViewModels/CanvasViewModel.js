@@ -177,7 +177,7 @@
                 _hookUpDragEvents();
 
                 //handle window resizing
-                $(window).resize(function () {
+                $(window).on("resize orientationchange", function () {
                     _stage.setSize($container.width(), $container.height());
                     _redrawArtifacts();
                 });
