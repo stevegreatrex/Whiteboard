@@ -81,6 +81,7 @@
                     _artifactAdded(vm);
                     _artifacts.push(vm);
                     _localAddedArtifacts.push(vm);
+                    return vm;
                 }
             },
            
@@ -196,6 +197,7 @@
         this.recenter = _recenter;
         this.localAddedArtifacts = _localAddedArtifacts;
         this.exportAsImage = _exportAsImage;
+        this.addNewArtifact = _handleCreatedArtifact;
     };
 
     ViewModels.CanvasViewModel.Tools = {};

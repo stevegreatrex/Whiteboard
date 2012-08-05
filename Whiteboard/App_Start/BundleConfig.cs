@@ -25,6 +25,7 @@ namespace Whiteboard
 			bundles.Add(new ScriptBundle("~/bundles/viewmodels").Include(
 						"~/Scripts/api.js",
 						"~/Scripts/utils*",
+						"~/Scripts/jQuery.pasteImageReader*",
 						"~/Scripts/ViewModels/*.js",
 						"~/Scripts/CanvasTools/*.js"));
 

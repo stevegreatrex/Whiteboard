@@ -112,6 +112,16 @@
                 canvas.artifactAdded.subscribe(function(added) {
                     added.save(hub, boardData.Id);
                 });
+
+                $(window).pasteImageReader(function (data) {
+                    canvas.addNewArtifact({
+                        Type: "Image",
+                        Data: {
+                            x: 0, y: 0,
+                            imageUri: data.dataURL
+                        }
+                    });
+                });
             },
             
             //called once the hub is up and running

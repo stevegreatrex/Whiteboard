@@ -4,7 +4,14 @@
 	ViewModels.ArtifactViewModel = function (artifact) {
 		//support either stringified or object data
 		if (typeof artifact.Data === "string")
-			artifact.Data = JSON.parse(artifact.Data);
+		    artifact.Data = JSON.parse(artifact.Data);
+
+	    //if the artifact is an image, we need to deserialize the data
+		if (artifact.Type === "Image") {
+		    var image = new Image();
+		    image.src = artifact.Data.imageUri;
+		    artifact.Data.image = image;
+		}
 
 		var
 			//clone the artifact data so we can modify it during a save
@@ -33,6 +40,10 @@
 
 				//we have to send the data to the server as a string
 				var artifactData = _artifact();
+
+				if (artifactData.Type === "Image" && artifactData.Data.image)
+				    delete artifactData.Data.image;
+
 				artifactData.Data = JSON.stringify(artifactData.Data);
 
 				return boardHub.addArtifact(boardId, artifactData);
