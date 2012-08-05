@@ -10,6 +10,11 @@
 		if (artifact.Type === "Image") {
 		    var image = new Image();
 		    image.src = artifact.Data.imageUri;
+		    image.onload = function () {
+		        _artifact().Data.width = image.width;
+		        _artifact().Data.height = image.height;
+		        _redraw();
+		    };
 		    artifact.Data.image = image;
 		}
 

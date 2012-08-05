@@ -118,7 +118,8 @@
                         Type: "Image",
                         Data: {
                             x: 0, y: 0,
-                            imageUri: data.dataURL
+                            imageUri: data.dataURL,
+                            fill: "#eee"
                         }
                     });
                 });
