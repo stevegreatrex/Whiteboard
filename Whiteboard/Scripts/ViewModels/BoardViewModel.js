@@ -67,6 +67,16 @@
                 _newEvents(_newEvents() + 1);
             },
 
+            //do we have an artifact with the specified id?
+            _findArtifact = function (artifactId) {
+                var existingArtifacts = canvas.artifacts();
+                for (var i = 0; i < existingArtifacts.length; i++) {
+                    if (existingArtifacts[i].artifact().Data.Id === artifactId) {
+                        return existingArtifacts[i];
+                    }
+                }
+            },
+
             //hook up signalr event listeners
             _hookUpServerEventListeners = function () {
 
@@ -78,7 +88,9 @@
 
                 //artifact being added
                 hub.artifactAdded = function (artifact, event) {
-                    canvas.artifacts.push(new ViewModels.ArtifactViewModel(artifact));
+                    if (!_findArtifact(artifact.Data.Id)) {
+                        canvas.artifacts.push(new ViewModels.ArtifactViewModel(artifact));
+                    }
                     _recordEvent(event);
                 };
 
