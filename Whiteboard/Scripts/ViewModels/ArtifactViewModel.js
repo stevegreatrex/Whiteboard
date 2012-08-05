@@ -18,7 +18,9 @@
 		    artifact.Data.image = image;
 		}
 
-		var
+	    var
+            _self = this,
+
 			//clone the artifact data so we can modify it during a save
 			_artifact = ko.observable($.extend({}, true, artifact)),
 
@@ -43,20 +45,34 @@
 				_shape.setAlpha(0.5);
 				_redraw();
 
-				//we have to send the data to the server as a string
+				//grab the (possibly modified) artifact
 				var artifactData = _artifact();
 
+                //can't serialize and HTMLImageElement, so remove it if it's there
 				if (artifactData.Type === "Image" && artifactData.Data.image)
 				    delete artifactData.Data.image;
 
+                //set the string data
 				artifactData.Data = JSON.stringify(artifactData.Data);
 
-				return boardHub.addArtifact(boardId, artifactData);
+				return boardHub.saveArtifact(boardId, artifactData);
 			}).done(function (updated) {
 				_shape.setAlpha(1);
 				_redraw();
 				_artifact(updated);
-			});
+			}),
+
+            //initialize
+			_init = function () {
+			    _shape.setDraggable(true);
+			    _shape.on("dragend", function (evt) {
+			        evt.artifact = _self;
+			        _artifact().Data.x = evt.x;
+			        _artifact().Data.y = evt.y;
+			    });
+			};
+
+		_init();
 
 		//public members
 		this.shape = _shape;

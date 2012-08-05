@@ -167,6 +167,7 @@
     <Content Include="Scripts\CanvasTools\Ellipse.js" />
     <Content Include="Scripts\CanvasTools\Pan.js" />
     <Content Include="Scripts\CanvasTools\Rect.js" />
+    <Content Include="Scripts\CanvasTools\Selector.js" />
     <Content Include="Scripts\CanvasTools\Text.js" />
     <Content Include="Scripts\kinetic-v3.10.5.js" />
     <Content Include="Scripts\ViewModels\ArtifactViewModel.js" />

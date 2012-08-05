@@ -21,6 +21,7 @@
 
             //custom events - not sure if there's a better way to do this!
             _artifactAdded = ko.observable(),
+            _artifactMoved = ko.observable(),
 
             //tools
             _availableTools = ko.observableArray(),
@@ -75,6 +76,7 @@
                 }
             },
 
+            //add the created artifact with a new view model
             _handleCreatedArtifact = function (newArtifact) {
                 if (newArtifact) {
                     var vm = new ViewModels.ArtifactViewModel(newArtifact);
@@ -87,6 +89,10 @@
            
             //hook up the drag events on the event sink
             _hookUpDragEvents = function () {
+                _drawingLayer.on("dragend", function (evt) {
+                    _artifactMoved(evt.artifact);
+                });
+
                 _eventSink.on("click dbltap", function (e) {
                     if (_currentTool().click) {
                         var pos = _getCurrentPosition();
@@ -138,6 +144,7 @@
 
             //populate the available tools
             _loadTools = function () {
+                _availableTools.push(ViewModels.CanvasViewModel.Tools.Selector);
                 _availableTools.push(ViewModels.CanvasViewModel.Tools.Pan);
                 _availableTools.push(ViewModels.CanvasViewModel.Tools.Pen);
                 _availableTools.push(ViewModels.CanvasViewModel.Tools.Ellipse);
@@ -184,6 +191,14 @@
 
                 //load tools
                 _loadTools();
+
+                //when tool changes, reset cursor layer and notify the tool
+                _currentTool.subscribe(function (tool) {
+                    _resetCursorLayer();
+                    if (tool.selected) {
+                        tool.selected(_createEventContext());
+                    }
+                });
             };
 
         _init();
@@ -191,6 +206,7 @@
         //public members
         this.artifacts = _artifacts;
         this.artifactAdded = _artifactAdded;
+        this.artifactMoved = _artifactMoved;
         this.availableTools = _availableTools;
         this.currentTool = _currentTool;
         this.selectTool = _selectTool;

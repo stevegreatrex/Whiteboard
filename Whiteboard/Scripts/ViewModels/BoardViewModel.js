@@ -71,7 +71,7 @@
             _findArtifact = function (artifactId) {
                 var existingArtifacts = canvas.artifacts();
                 for (var i = 0; i < existingArtifacts.length; i++) {
-                    if (existingArtifacts[i].artifact().Data.Id === artifactId) {
+                    if (existingArtifacts[i].artifact().Id === artifactId) {
                         return existingArtifacts[i];
                     }
                 }
@@ -86,11 +86,20 @@
                     _recordEvent(event);
                 };
 
-                //artifact being added
+                //artifact being added or updated
                 hub.artifactAdded = function (artifact, event) {
-                    if (!_findArtifact(artifact.Data.Id)) {
+                    if (!_findArtifact(artifact.Id)) {
                         canvas.artifacts.push(new ViewModels.ArtifactViewModel(artifact));
                     }
+                    _recordEvent(event);
+                };
+
+                hub.artifactUpdated = function (artifact, event) {
+                    var existing = _findArtifact(artifact.Id);
+                    if (existing)
+                        canvas.artifacts.remove(existing);
+                    
+                    canvas.artifacts.push(new ViewModels.ArtifactViewModel(artifact));
                     _recordEvent(event);
                 };
 
@@ -102,7 +111,9 @@
 
                 //artifact being removed
                 hub.artifactRemoved = function (artifactId, event) {
-                    canvas.artifacts.remove(function (artifactVM) { return artifactVM.artifact().Id === artifactId; });
+                    var existing = _findArtifact(artifactId);
+                    if (existing)
+                        canvas.artifacts.remove(existing);
                     _recordEvent(event);
                 };
             },
@@ -122,6 +133,11 @@
 
                 //save any artifact added to the canvas
                 canvas.artifactAdded.subscribe(function(added) {
+                    added.save(hub, boardData.Id);
+                });
+
+                //save any artifact that moves
+                canvas.artifactMoved.subscribe(function (added) {
                     added.save(hub, boardData.Id);
                 });
 
