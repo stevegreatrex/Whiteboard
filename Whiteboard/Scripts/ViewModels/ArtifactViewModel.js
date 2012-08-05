@@ -65,8 +65,6 @@
 				_artifact(updated);
 			}),
 
-            _dragStart,
-
             //initialize
 			_init = function () {
 			    _prepareArtifactFromServer(artifact);
@@ -79,10 +77,9 @@
 
 			    _shape.on("dragend", function (evt) {
 			        evt.artifact = _self;
-                    
-//			        var layerOffset = _shape.getLayer().getOffset();
-			        _artifact().Data.x = _artifact().Data.x + (evt.layerX - _dragStart.layerX);
-			        _artifact().Data.y = _artifact().Data.y + (evt.layerY - _dragStart.layerY);
+			        
+			        _artifact().Data.x = _shape.getX();
+			        _artifact().Data.y = _shape.getY()
 			    });
 			};
 
