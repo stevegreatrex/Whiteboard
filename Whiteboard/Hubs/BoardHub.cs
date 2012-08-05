@@ -19,7 +19,7 @@ namespace Whiteboard.Hubs
 		public void RemoveArtifact(Guid artifactId)
 		{
 			var artifact = _context.Artifacts.Find(artifactId);
-			if (artifactId == null) throw new InvalidOperationException();
+			if (artifact == null) throw new InvalidOperationException();
 
 			_context.Artifacts.Remove(artifact);
 
@@ -55,32 +55,40 @@ namespace Whiteboard.Hubs
 		}
 
 		/// <summary>
-		/// Add a new artifact to a board
+		/// Saves an existing artifact, or adds a new artifact to a board
 		/// </summary>
 		/// <param name="boardId"></param>
 		/// <param name="artifact"></param>
 		/// <returns></returns>
-		public Artifact AddArtifact(Guid boardId, Artifact artifact)
+		public Artifact SaveArtifact(Guid boardId, Artifact artifact)
 		{
 			if (artifact == null) throw new ArgumentNullException("artifact");
 
-			var board = _context.Boards.Find(boardId);
-			if (board == null) throw new InvalidOperationException();
+			var isNew = artifact.Id == Guid.Empty;
+			if (isNew) //if it's a new one
+			{
+				artifact.Id = Guid.NewGuid();
+				artifact.BoardId = boardId;
+				artifact.Revision = _context.Artifacts.Where(a => a.BoardId == boardId).Select(a => a.Revision).OrderByDescending(r => r).FirstOrDefault() + 1;
+				_context.Artifacts.Add(artifact);
+			}
+			else
+			{
+				var toUpdate = _context.Artifacts.Find(artifact.Id);
+				toUpdate.Data = artifact.Data;
+			}
 
-			artifact.Id = Guid.NewGuid();
-			artifact.Revision = _context.Artifacts.Where(a => a.BoardId == boardId).Select(a => a.Revision).OrderByDescending(r => r).FirstOrDefault() + 1;
-			artifact.BoardId = boardId;
-
-			var artifactEvent = new BoardEvent { BoardId = board.Id, Description = "Drawing Updated" };
+			var artifactEvent = new BoardEvent { BoardId = boardId, Description = "Drawing Updated" };
 			if (this.Context.User != null)
 				artifactEvent.User = this.Context.User.Identity.Name;
-
-			board.Artifacts.Add(artifact);
-			board.BoardEvents.Add(artifactEvent);
-
+			_context.BoardEvents.Add(artifactEvent);
+			
 			_context.SaveChanges();
 
-			Clients[boardId.ToString()].artifactAdded(artifact, artifactEvent);
+			if (isNew)
+				Clients[boardId.ToString()].artifactAdded(artifact, artifactEvent);
+			else
+				Clients[boardId.ToString()].artifactUpdated(artifact, artifactEvent);
 			
 			return artifact;
 		}
