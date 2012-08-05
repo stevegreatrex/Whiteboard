@@ -65,6 +65,8 @@
 				_artifact(updated);
 			}),
 
+            _dragStart,
+
             //initialize
 			_init = function () {
 			    _prepareArtifactFromServer(artifact);
@@ -73,12 +75,14 @@
 			    //set up the shape
 			    _shape = new Kinetic[_artifact().Type](_artifact().Data);
 			    _shape.setDraggable(true);
+			    _shape.on("dragstart", function (evt) { _dragStart = evt })
+
 			    _shape.on("dragend", function (evt) {
 			        evt.artifact = _self;
                     
-			        var layerOffset = _shape.getLayer().getOffset();
-			        _artifact().Data.x = evt.layerX - (_shape.getWidth() / 2) + layerOffset.x;
-			        _artifact().Data.y = evt.layerY - (_shape.getHeight() / 2) + layerOffset.y;
+//			        var layerOffset = _shape.getLayer().getOffset();
+			        _artifact().Data.x = _artifact().Data.x + (evt.layerX - _dragStart.layerX);
+			        _artifact().Data.y = _artifact().Data.y + (evt.layerY - _dragStart.layerY);
 			    });
 			};
 
