@@ -15,7 +15,7 @@
         <ul class="dropdown-menu tools-menu">
             <li>
                 <div data-bind="foreach: canvas.availableTools">
-                    <a href="#" class="btn" data-bind="click: $parent.canvas.selectTool, attr: { title: name }">
+                    <a href="#" class="btn clickable" data-bind="click: $parent.canvas.selectTool, attr: { title: name }, css: { 'btn-primary': $parent.canvas.currentTool() === $data }">
                         <i data-bind="attr: { class: icon }"></i>
                     </a>
                 </div>
@@ -125,17 +125,17 @@
     -->
     <script id="color-editor" type="text/html">
         <div class="btn-group" data-bind="foreach: ['#000', '#808080', '#C0C0C0', '#DCDCDC', '#FFF', /*reds*/ '#f00', '#ff4500', '#fa8072', '#ffa500', '#ffd700', /*greens*/ '#006400', '#228b22','#6b8e23', '#32cd32', '#7cfc00', /*blues*/'#191970', '#0000FF', '#1e90ff', '#87cefa', '#40e0d0']">
-            <div class="color-swatch" data-bind="click: function() { $parent.value($data); }, style: { background: $data }"></div>
+            <div class="color-swatch clickable" data-bind="click: function() { $parent.value($data); }, style: { background: $data }, css: { 'selected-swatch': $parent.value() === $data }"></div>
         </div>
     </script>
     <script id="pen-size-editor" type="text/html">
         <div class="btn-group" data-bind="foreach: [2, 5, 10, 20]">
-            <button class="btn no-hover-style" data-bind="click: function() { $parent.value($data); }, text: $data"></button>
+            <button class="btn no-hover-style clickable" data-bind="click: function() { $parent.value($data); }, text: $data, css: { 'btn-primary': $parent.value() === $data }"></button>
         </div>
     </script>
     <script id="font-size-editor" type="text/html">
         <div class="btn-group" data-bind="foreach: [8, 12, 16, 24, 48, 128]">
-            <button class="btn no-hover-style" data-bind="click: function() { $parent.value($data); }, text: $data"></button>
+            <button class="btn no-hover-style clickable" data-bind="click: function() { $parent.value($data); }, text: $data, css: { 'btn-primary': $parent.value() === $data }"></button>
         </div>
     </script>
     <script id="font-family-editor" type="text/html">
