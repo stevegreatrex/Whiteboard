@@ -37,7 +37,8 @@ namespace Whiteboard
 						"~/Scripts/jQuery.signalR*"));
 
 			bundles.Add(new StyleBundle("~/Content/bootstrap").Include(
-				"~/Content/bootstrap*"));
+				"~/Content/bootstrap.css",
+				"~/Content/bootstrap-responsive.css"));
 
 			bundles.Add(new StyleBundle("~/Content/less/dot.less").Include(
 				"~/Content/less/*.less"));

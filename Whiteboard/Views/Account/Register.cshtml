@@ -4,32 +4,33 @@
     ViewBag.Title = "Register";
 }
 
-<h1>Register Account</h1>
+<div class="row-fluid">
+    <p>
+        Passwords must be at least @Membership.MinRequiredPasswordLength characters long.
+    </p>
 
-<p>
-    Passwords must be at least @Membership.MinRequiredPasswordLength characters long.
-</p>
-
-@using (Html.BeginForm()) {
-    @Html.ValidationSummary()
+    @using (Html.BeginForm()) {
+        @Html.ValidationSummary()
         
-    @Html.LabelFor(m => m.UserName)
-    @Html.TextBoxFor(m => m.UserName)            
+        @Html.LabelFor(m => m.UserName)
+        @Html.TextBoxFor(m => m.UserName)            
 
 
-    @Html.LabelFor(m => m.Email)
-    @Html.TextBoxFor(m => m.Email)            
+        @Html.LabelFor(m => m.Email)
+        @Html.TextBoxFor(m => m.Email)            
 
 
 
-    @Html.LabelFor(m => m.Password)
-    @Html.PasswordFor(m => m.Password)            
+        @Html.LabelFor(m => m.Password)
+        @Html.PasswordFor(m => m.Password)            
 
 
-    @Html.LabelFor(m => m.ConfirmPassword)
-    @Html.PasswordFor(m => m.ConfirmPassword)            
+        @Html.LabelFor(m => m.ConfirmPassword)
+        @Html.PasswordFor(m => m.ConfirmPassword)            
 
-    <br />
-    <input type="submit" value="Register" />
+        <br />
+        <input type="submit" value="Register" />
 
-}
+    }
+
+</div>

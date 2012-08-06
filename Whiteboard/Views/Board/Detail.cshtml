@@ -1,7 +1,8 @@
 ﻿@model Whiteboard.Models.Board
 
 @{
-    ViewBag.Title = Model.Name;
+    ViewBag.Title = ViewBag.BoardName = Model.Name;
+    ViewBag.ActiveLink = Whiteboard.ActiveLink.Board;
 }
 
 @section header {

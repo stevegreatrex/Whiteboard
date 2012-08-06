@@ -1,4 +1,8 @@
 ﻿<!DOCTYPE html>
+
+@{
+    //ViewBag.ActiveLink = Whiteboard.ActiveLink.Other; //default
+}
 <html lang="en">
     <head>
         <meta charset="utf-8" />
@@ -14,11 +18,25 @@
         <div class="navbar navbar-fixed-top nav">
             <div class="navbar-inner">
                 <div class="container-fluid">
-                    
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                      </a>
+
                     <a class="brand" href="/">Whiteboard</a>
-                    
+                  
                     @RenderSection("header", required: false)
                     @Html.Partial("_LoginPartial")
+
+                    <div class="nav-collapse">
+                        <ul class="nav">
+                          <li class="@(ViewBag.ActiveLink == Whiteboard.ActiveLink.Home ? "active" : "")"><a href="/">Home</a></li>
+                          <li class="dropdown @(ViewBag.ActiveLink == Whiteboard.ActiveLink.Board ? "active" : "")">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">@(ViewBag.BoardName ?? "Boards")<b class="caret"></b></a>
+                          </li>
+                        </ul>
+                  </div><!--/.nav-collapse -->
                 </div>
             </div>
         </div>

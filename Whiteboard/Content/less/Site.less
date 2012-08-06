@@ -4,11 +4,15 @@
 body {
   padding-top: 60px;
 }
-/*@media (max-width: 979px) {
+@media (max-width: 979px) {
   body {
     padding-top: 0px;
   }
-}*/
+}
+
+.container-fluid {
+	position: relative;
+}
 
 /*
 	Header
@@ -123,6 +127,14 @@ body {
     -webkit-user-select:none;
     user-select:none;
     -ms-user-select:none;
+	z-index: -1;
+}
+
+@media (max-width: 979px) {
+	#canvas-container {
+		position: fixed;
+		top: 65px;
+	}
 }
 
 .color-swatch {
