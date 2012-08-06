@@ -1,14 +1,8 @@
-﻿(function (Tools) {
+﻿(function (Tools, GlobalSettings) {
     Tools.Rect = (function () {
         var
            //the Rect drawn whilst the mouse/touch is down
             _tempRect,
-
-            //line color
-            _color = ko.observable("#000"),
-
-            //line size
-            _size = ko.observable(5),
 
             //invisible cursor
             _cursor = new Kinetic.Rect({
@@ -22,8 +16,8 @@
             //generates the Rect data for either the temporary or confirmed line
             _getRectData = function (currentPosition) {
                 return {
-                    strokeWidth: _size(),
-                    stroke: _color(),
+                    strokeWidth: GlobalSettings.size(),
+                    stroke: GlobalSettings.color(),
                     x: _startPos.x,
                     y: _startPos.y,
                     width: (currentPosition.x - _startPos.x),
@@ -62,11 +56,11 @@
             penUp: _penUp,
             icon: "icon-stop",
             name: "Rectangle Tool",
-            color: _color,
+            color: GlobalSettings.color,
             options: [
-                { name: "Color", editor: "color-editor", value: _color },
-                { name: "Stroke Width", editor: "pen-size-editor", value: _size }
+                { name: "Color", editor: "color-editor", value: GlobalSettings.color },
+                { name: "Stroke Width", editor: "pen-size-editor", value: GlobalSettings.size }
             ]
         };
     })();
-})(ViewModels.CanvasViewModel.Tools);
+})(ViewModels.CanvasViewModel.Tools, ViewModels.CanvasViewModel.Tools.GlobalSettings);

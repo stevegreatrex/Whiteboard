@@ -1,4 +1,4 @@
-﻿(function (Tools) {
+﻿(function (Tools, GlobalSettings) {
     Tools.Pen = (function () {
         var
             //keep a record of all points in the current line
@@ -7,12 +7,6 @@
             //the line drawn whilst the mouse/touch is down
             _tempLine,
 
-            //line color
-            _color = ko.observable("#000"),
-
-            //line size
-            _size = ko.observable(5),
-
             //simple cursor
             _cursor = new Kinetic.Circle({
                 strokeWidth: 2
@@ -20,21 +14,21 @@
 
             //update cursor with size and color
             _updateCursor = function () {
-                _cursor.setRadius(_size()/2);
-                _cursor.setStroke(_color());
+                _cursor.setRadius(GlobalSettings.size()/2);
+                _cursor.setStroke(GlobalSettings.color());
             },
            
            //hook up event listeners on color & size
         _init = function () {
-            _size.subscribe(_updateCursor);
-            _color.subscribe(_updateCursor);
+            GlobalSettings.size.subscribe(_updateCursor);
+            GlobalSettings.color.subscribe(_updateCursor);
         },
 
         //generates the line data for either the temporary or confirmed line
         _getLineData = function () {
             return {
-                strokeWidth: _size(),
-                stroke: _color(),
+                strokeWidth: GlobalSettings.size(),
+                stroke: GlobalSettings.color(),
                 points: _currentDrawingPoints,
                 lineCap: "round"
             }
@@ -70,11 +64,11 @@
             penUp: _penUp,
             icon: "icon-pencil",
             name: "Pen Tool",
-            color: _color,
+            color: GlobalSettings.color,
             options: [
-                { name: "Color", editor: "color-editor", value: _color },
-                { name: "Pen Size", editor: "pen-size-editor", value: _size }
+                { name: "Color", editor: "color-editor", value: GlobalSettings.color },
+                { name: "Pen Size", editor: "pen-size-editor", value: GlobalSettings.size }
             ]
         };
     })();
-})(ViewModels.CanvasViewModel.Tools);
+})(ViewModels.CanvasViewModel.Tools, ViewModels.CanvasViewModel.Tools.GlobalSettings);

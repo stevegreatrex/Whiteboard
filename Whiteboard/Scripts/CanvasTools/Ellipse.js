@@ -1,14 +1,8 @@
-﻿(function (Tools) {
+﻿(function (Tools, GlobalSettings) {
     Tools.Ellipse = (function () {
         var
            //the circle drawn whilst the mouse/touch is down
             _tempCircle,
-
-            //line color
-            _color = ko.observable("#000"),
-
-            //line size
-            _size = ko.observable(5),
 
             //invisible cursor
             _cursor = new Kinetic.Circle({
@@ -31,8 +25,8 @@
                 };
 
                 return {
-                    strokeWidth: _size(),
-                    stroke: _color(),
+                    strokeWidth: GlobalSettings.size(),
+                    stroke: GlobalSettings.color(),
                     x: center.x,
                     y: center.y,
                     radius: {
@@ -73,11 +67,11 @@
             penUp: _penUp,
             icon: "icon-play-circle",
             name: "Circle Tool",
-            color: _color,
+            color: GlobalSettings.color,
             options: [
-                { name: "Color", editor: "color-editor", value: _color },
-                { name: "Stroke Width", editor: "pen-size-editor", value: _size }
+                { name: "Color", editor: "color-editor", value: GlobalSettings.color },
+                { name: "Stroke Width", editor: "pen-size-editor", value: GlobalSettings.size }
             ]
         };
     })();
-})(ViewModels.CanvasViewModel.Tools);
+})(ViewModels.CanvasViewModel.Tools, ViewModels.CanvasViewModel.Tools.GlobalSettings);

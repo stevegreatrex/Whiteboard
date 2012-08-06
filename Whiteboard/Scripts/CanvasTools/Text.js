@@ -1,9 +1,6 @@
-﻿(function (Tools) {
+﻿(function (Tools, GlobalSettings) {
     Tools.Text = (function () {
         var
-            //text color
-            _color = ko.observable("#000"),
-
             //font size
             _fontSize = ko.observable(12),
 
@@ -24,7 +21,7 @@
                     text: text,
                     fontSize: _fontSize(),
                     fontFamily: _fontFamily(),
-                    textFill: _color(),
+                    textFill: GlobalSettings.color(),
                 }
             },
 
@@ -43,12 +40,12 @@
             click: _click,
             icon: "icon-font",
             name: "Text Tool",
-            color: _color,
+            color: GlobalSettings.color,
             options: [
-                { name: "Color", editor: "color-editor", value: _color },
+                { name: "Color", editor: "color-editor", value: GlobalSettings.color },
                 { name: "Font Family", editor: "font-family-editor", value: _fontFamily },
                 { name: "Font Size", editor: "font-size-editor", value: _fontSize }
             ]
         };
     })();
-})(ViewModels.CanvasViewModel.Tools);
+})(ViewModels.CanvasViewModel.Tools, ViewModels.CanvasViewModel.Tools.GlobalSettings);

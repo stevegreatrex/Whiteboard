@@ -27,6 +27,7 @@ namespace Whiteboard
 						"~/Scripts/utils*",
 						"~/Scripts/jQuery.pasteImageReader*",
 						"~/Scripts/ViewModels/*.js",
+						"~/Scripts/CanvasTools/GlobalSettings.js",
 						"~/Scripts/CanvasTools/*.js"));
 
 			bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
