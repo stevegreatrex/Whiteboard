@@ -123,8 +123,10 @@
                 _populateEventsFromInitialData();
                 _populateArtifactsFromInitialData();
 
+                if (canvas.artifacts().length)
+                    canvas.currentTool(ViewModels.CanvasViewModel.Tools.Pan);
+
                 _hookUpServerEventListeners();
-                
 
                 //save the name when it is updated
                 _name.subscribe(function () {
