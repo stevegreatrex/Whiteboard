@@ -35,7 +35,22 @@ namespace Whiteboard.Controllers
 				.Take(5)
 				.ToList();
 
-			return View(board);
+			var viewModel = new BoardViewModel();
+			viewModel.Board = board;
+
+			if (Request.IsAuthenticated)
+			{
+				var openBoards = _context.Boards
+					.Where(b => b.CreatedByUser == User.Identity.Name)
+					.OrderByDescending(b => b.BoardEvents.Max(be => be.Date))
+					.Take(10);
+				foreach (var openBoard in openBoards)
+				{
+					viewModel.OpenBoards.Add(openBoard);					
+				}
+			}
+
+			return View(viewModel);
         }
 
         //

@@ -1,8 +1,9 @@
-﻿@model Whiteboard.Models.Board
+﻿@model Whiteboard.Models.BoardViewModel
 
 @{
-    ViewBag.Title = ViewBag.BoardName = Model.Name;
+    ViewBag.Title = ViewBag.BoardName = Model.Board.Name;
     ViewBag.ActiveLink = Whiteboard.ActiveLink.Board;
+    ViewBag.Boards = this.Model.OpenBoards;
 }
 
 @section header {
@@ -108,7 +109,7 @@
     @Scripts.Render("~/bundles/viewmodels")
     <script src="@Url.Content("~/signalr/hubs")" type="text/javascript"></script>
     <script>
-        var initialData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(this.Model));
+        var initialData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(this.Model.Board));
 
         $(function () {
             var hub = $.connection.boardHub;

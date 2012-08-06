@@ -34,6 +34,15 @@
                           <li class="@(ViewBag.ActiveLink == Whiteboard.ActiveLink.Home ? "active" : "")"><a href="/">Home</a></li>
                           <li class="dropdown @(ViewBag.ActiveLink == Whiteboard.ActiveLink.Board ? "active" : "")">
                               <a href="#" class="dropdown-toggle" data-toggle="dropdown">@(ViewBag.BoardName ?? "Boards")<b class="caret"></b></a>
+                              <ul class="dropdown-menu">
+                                  @if (ViewBag.Boards != null)
+                                  {
+                                      foreach (var board in ViewBag.Boards)
+                                      {
+                                          <li><a href="@Url.Action("Detail", "Board", new { id = board.Id })">@(board.Name ?? "(Unnamed Board)")</a></li>
+                                      }
+                                  }
+                              </ul>
                           </li>
                         </ul>
                   </div><!--/.nav-collapse -->

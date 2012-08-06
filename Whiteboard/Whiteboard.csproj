@@ -163,6 +163,8 @@
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\BoardEvent.cs" />
+    <Compile Include="Models\BoardStub.cs" />
+    <Compile Include="Models\BoardViewModel.cs" />
     <Compile Include="Models\WhiteboardContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Scripts\CanvasTools\Ellipse.js" />

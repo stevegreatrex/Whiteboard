@@ -6,19 +6,14 @@ using System.Web;
 
 namespace Whiteboard.Models
 {
-	public class Board
+	public class Board : BoardStub
 	{
 		public Board()
 		{
 			this.BoardEvents = new List<BoardEvent>();
 			this.Artifacts = new List<Artifact>();
 		}
-
-		[Required]
-		public Guid Id { get; set; }
-
-		public string Name { get; set; }
-
+		
 		public string CreatedByUser { get; set; }
 
 		public ICollection<BoardEvent> BoardEvents { get; set; }
