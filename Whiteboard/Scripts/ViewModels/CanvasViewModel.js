@@ -49,6 +49,7 @@
 
                 _eventSink.setX(0);
                 _eventSink.setY(0);
+                _eventSink.setSize($container.width(), $container.height());
                 _eventSink.setOffset(-drawingOffset.x, -drawingOffset.y); //make sure that the even sink always covers the screen
                 _cursor.setAlpha(0);
                 _cursorLayer.add(_cursor);
@@ -186,6 +187,7 @@
                 //handle window resizing
                 $(window).on("resize orientationchange", function () {
                     _stage.setSize($container.width(), $container.height());
+                    _resetCursorLayer();
                     _redrawArtifacts();
                 });
 
