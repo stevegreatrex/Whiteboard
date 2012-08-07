@@ -2,6 +2,8 @@
 	var ViewModels = (window.ViewModels = window.ViewModels || {});
 
 	ViewModels.ArtifactViewModel = function (artifact) {
+	    if (!artifact) throw "Must specify artifact";
+
 		 var
             _self = this,
 
