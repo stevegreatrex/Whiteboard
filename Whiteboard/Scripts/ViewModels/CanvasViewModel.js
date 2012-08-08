@@ -45,7 +45,7 @@
             _resetCursorLayer = function () {
                 _cursorLayer.removeChildren();
 
-                              var drawingOffset = _drawingLayer.getOffset();
+                 var drawingOffset = _drawingLayer.getOffset();
 
                 _eventSink.setX(0);
                 _eventSink.setY(0);
@@ -92,61 +92,34 @@
            
            //hook up the drag events on the event sink
             _hookUpDragEvents = function () {
+                //helper function used for events that are just passed to the current tool
+                var attachEventHandler = function (events, method, on) {
+                    var handler = function(evt) {
+                        if (_currentTool()[method]) {
+                            var result = _currentTool()[method](_createEventContext(evt));
+                            _handleCreatedArtifact(result);
+                        }
+                    };
+                    for (var i = 0; i < on.length; i++) {
+                        on[i].on(events, handler);
+                    }
+                }
+
+                attachEventHandler("dblclick dbltap", "dblclick", [_drawingLayer, _eventSink]);
+                attachEventHandler("click tap", "click", [_drawingLayer, _eventSink]);
+                attachEventHandler("dragmove", "dragmove", [_drawingLayer]);
+                attachEventHandler("click tap", "click", [_eventSink]);
+                attachEventHandler("dragstart", "penDown", [_eventSink]);
+                attachEventHandler("dragmove", "penMove", [_eventSink]);
+                attachEventHandler("dragend mouseleave", "penUp", [_eventSink]);
+
                 //drawing element dragend forwarded to tools
                 _drawingLayer.on("dragend", function (evt) {
                     _artifactMoved(evt.artifact);
-                    if (_currentTool().dragend) {
-                        _currentTool().dragend(_createEventContext(evt))
-                    }
                 });
 
-                //drawing element dragmove forwarded to tools
-                _drawingLayer.on("dragmove", function (evt) {
-                    if (_currentTool().dragmove) {
-                        _currentTool().dragmove(_createEventContext(evt))
-                    }
-                });
-
-                //helper function used for events that are just passed to the current tool
-                var attachEventHandler = function (events, method) {
-                    var handler = function(evt) {
-                        if (_currentTool()[method]) {
-                            _handleCreatedArtifact(_currentTool()[method](_createEventContext(evt)));
-                        }
-                    };
-                    _drawingLayer.on(events, handler);
-                    _eventSink.on(events, handler);
-                }
-
-                attachEventHandler("dblclick dbltap", "dblclick");
-                attachEventHandler("click tap", "click");
-
-                _eventSink.on("click tap", function (evt) {
-                    if (_currentTool().click) {
-                        _handleCreatedArtifact(_currentTool().click(_createEventContext(evt)));
-                    }
-                });
-
-                _eventSink.on("dragstart", function (evt) {
-                    if (_currentTool().penDown) {
-                        _currentTool().penDown(_createEventContext());
-                    }
-                });
-
-                _eventSink.on("dragmove", function (evt) {
-                    if (_currentTool().penMove) {
-                        var context = _createEventContext(evt);
-                        _currentTool().penMove(context);
-                        _cursorLayer.draw();
-                    }
-                });
-
-                _eventSink.on("dragend mouseleave", function (evt) {
-                    if (_currentTool().penUp) {
-                        _handleCreatedArtifact(_currentTool().penUp(_createEventContext(evt)));                      
-                    }
-                    _resetCursorLayer();
-                });
+                //reset the cursor layer when a drag ends
+                _eventSink.on("dragend mouseleave", _resetCursorLayer);
             },
 
             //redraw all artifacts
