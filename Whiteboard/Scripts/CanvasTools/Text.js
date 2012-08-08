@@ -45,7 +45,8 @@
                 { name: "Color", editor: "color-editor", value: GlobalSettings.color },
                 { name: "Font Family", editor: "font-family-editor", value: _fontFamily },
                 { name: "Font Size", editor: "font-size-editor", value: _fontSize }
-            ]
+            ],
+            cssCursor: "text"
         };
     })();
 })(ViewModels.CanvasViewModel.Tools, ViewModels.CanvasViewModel.Tools.GlobalSettings);

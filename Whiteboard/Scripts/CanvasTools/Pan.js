@@ -44,7 +44,8 @@
             penMove: _penMove,
             penUp: _penUp,
             icon: "icon-move",
-            name: "Pan Tool"
+            name: "Pan Tool",
+            cssCursor: "move"
         };
     })();
 })(ViewModels.CanvasViewModel.Tools);
