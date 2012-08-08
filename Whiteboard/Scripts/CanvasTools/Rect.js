@@ -15,14 +15,20 @@
 
             //generates the Rect data for either the temporary or confirmed line
             _getRectData = function (currentPosition) {
-                return {
+                var data = {
                     strokeWidth: GlobalSettings.size(),
                     stroke: GlobalSettings.color(),
                     x: _startPos.x,
                     y: _startPos.y,
                     width: (currentPosition.x - _startPos.x),
                     height: (currentPosition.y - _startPos.y)
+                };
+
+                if (GlobalSettings.fill()) {
+                    data.fill = GlobalSettings.fill();
                 }
+
+                return data;
             },
 
             //reset the current drawing when the pen goes down
@@ -59,6 +65,7 @@
             color: GlobalSettings.color,
             options: [
                 { name: "Color", editor: "color-editor", value: GlobalSettings.color },
+                { name: "Fill Color", editor: "fill-color-editor", value: GlobalSettings.fill },
                 { name: "Stroke Width", editor: "pen-size-editor", value: GlobalSettings.size }
             ]
         };

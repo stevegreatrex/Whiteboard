@@ -24,7 +24,7 @@
                     y: _startPos.y + halfSize.height
                 };
 
-                return {
+                var data = {
                     strokeWidth: GlobalSettings.size(),
                     stroke: GlobalSettings.color(),
                     x: center.x,
@@ -34,6 +34,12 @@
                         y: Math.abs(halfSize.height)
                     }
                 }
+
+                if (GlobalSettings.fill()) {
+                    data.fill = GlobalSettings.fill();
+                }
+
+                return data;
             },
         
             //reset the current drawing when the pen goes down
@@ -70,6 +76,7 @@
             color: GlobalSettings.color,
             options: [
                 { name: "Color", editor: "color-editor", value: GlobalSettings.color },
+                { name: "Fill Color", editor: "fill-color-editor", value: GlobalSettings.fill },
                 { name: "Stroke Width", editor: "pen-size-editor", value: GlobalSettings.size }
             ]
         };

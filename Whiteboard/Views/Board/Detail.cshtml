@@ -131,6 +131,14 @@
             <div class="color-swatch clickable" data-bind="click: function() { $parent.value($data); }, style: { background: $data }, css: { 'selected-swatch': $parent.value() === $data }"></div>
         </div>
     </script>
+    <script id="fill-color-editor" type="text/html">
+        <div class="clickable no-fill-swatch" data-bind="click: function() { value(null); }">
+            <div class="color-swatch clickable" data-bind="css: { 'selected-swatch': value() === null }">
+                <span>(No Fill)</span>
+            </div>
+        </div>
+        <div data-bind="template: { name: 'color-editor', data: $data }"></div>
+    </script>
     <script id="pen-size-editor" type="text/html">
         <div class="btn-group" data-bind="foreach: [2, 5, 10, 20]">
             <button class="btn no-hover-style clickable" data-bind="click: function() { $parent.value($data); }, text: $data, css: { 'btn-primary': $parent.value() === $data }"></button>
