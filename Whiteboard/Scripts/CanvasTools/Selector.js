@@ -7,19 +7,17 @@
             radius: 0
         }),
 
-        _delete = new Kinetic.Group(),
-
-        _currentBoard,
+        _delete,
 
         _selectedArtifact = ko.observable(),
 
-        //initialize
-        _init = function () {
+        _createDelete = function (context) {
+            _delete = new Kinetic.Group()
             _delete.on("click tap", function (evt) {
-                if (_currentBoard && _selectedArtifact()) {
-                    _currentBoard.removeArtifact(_selectedArtifact());
+                if (context && _selectedArtifact()) {
+                    context.board.removeArtifact(_selectedArtifact());
                     var layer = _delete.getLayer();
-                    layer.remove(_delete);
+                    _delete.hide();
                     layer.draw();
                     _selectedArtifact(null);
                 }
@@ -38,9 +36,16 @@
                 strokeWidth: 3,
                 points: [ 1,1 , 9,9 , 5,5 , 1,9 , 9,1 ]
             }));
+
+            return _delete;
         },
 
         _updateDeleteMarker = function (context) {
+
+            if (!_delete) {
+                _delete = _createDelete(context);
+            }
+
             var shape = context.artifact.shape,
                 x = shape.attrs.x,
                 y = shape.attrs.y;
@@ -61,6 +66,7 @@
             _delete.setX(x);
             _delete.setY(y);
             context.cursorLayer.add(_delete);
+            _delete.show();
             context.cursorLayer.draw();
         },
             
@@ -73,22 +79,19 @@
         //called when the tool is unselected
         _unselected = function (context) {
             context.cursorLayer.remove(_delete);
+            _delete = null;
         },
 
         _dragmove = function (context) {
             _selectedArtifact(context.artifact);
-            _currentBoard = context.board;
             _updateDeleteMarker(context);
         },
         
         //called when a shape is clicked
         _click = function (context) {
             _selectedArtifact(context.artifact);
-            _currentBoard = context.board;
             _updateDeleteMarker(context);
         };
-
-        _init();
 
         return {
             selected: _selected,
