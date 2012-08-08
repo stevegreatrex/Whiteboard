@@ -32,7 +32,7 @@ namespace Whiteboard.Hubs
 
 			_context.SaveChanges();
 
-			Clients[artifactEvent.BoardId.ToString()].artifactRemoved(artifactId, artifactEvent);
+			Clients[artifactEvent.BoardId.ToString()].artifactRemoved(artifactId, artifactEvent, Caller.callerId);
 		}
 
 		/// <summary>
@@ -51,7 +51,7 @@ namespace Whiteboard.Hubs
 
 			_context.SaveChanges();
 
-			Clients[boardId.ToString()].boardCleared(clearedEvent);
+			Clients[boardId.ToString()].boardCleared(clearedEvent, Caller.callerId);
 		}
 
 		/// <summary>
@@ -86,9 +86,9 @@ namespace Whiteboard.Hubs
 			_context.SaveChanges();
 
 			if (isNew)
-				Clients[boardId.ToString()].artifactAdded(artifact, artifactEvent);
+				Clients[boardId.ToString()].artifactAdded(artifact, artifactEvent, Caller.callerId);
 			else
-				Clients[boardId.ToString()].artifactUpdated(artifact, artifactEvent);
+				Clients[boardId.ToString()].artifactUpdated(artifact, artifactEvent, Caller.callerId);
 			
 			return artifact;
 		}
@@ -116,7 +116,7 @@ namespace Whiteboard.Hubs
 			
 			_context.SaveChanges();
 
-			Clients[boardId.ToString()].boardRenamed(boardName, renamedEvent);
+			Clients[boardId.ToString()].boardRenamed(boardName, renamedEvent, Caller.callerId);
 		}
 
 		/// <summary>
@@ -125,6 +125,7 @@ namespace Whiteboard.Hubs
 		/// <param name="boardId"></param>
 		public void Join(Guid boardId)
 		{
+			Caller.callerId = Guid.NewGuid();
 			Groups.Add(Context.ConnectionId, boardId.ToString());
 		}
 	}

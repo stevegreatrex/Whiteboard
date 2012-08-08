@@ -88,20 +88,23 @@
             _hookUpServerEventListeners = function () {
 
                 //react to board being renamed
-                hub.boardRenamed = function (newName, event) {
+                hub.boardRenamed = function (newName, event, callerId) {
+                    if (callerId === hub.callerId) { return; }
                     _name(newName);
                     _recordEvent(event);
                 };
 
                 //artifact being added or updated
-                hub.artifactAdded = function (artifact, event) {
+                hub.artifactAdded = function (artifact, event, callerId) {
+                    if (callerId === hub.callerId) { return; }
                     if (!_findArtifact(artifact.Id)) {
                         canvas.artifacts.push(new ViewModels.ArtifactViewModel(artifact));
                     }
                     _recordEvent(event);
                 };
 
-                hub.artifactUpdated = function (artifact, event) {
+                hub.artifactUpdated = function (artifact, event, callerId) {
+                    if (callerId === hub.callerId) { return; }
                     var existing = _findArtifact(artifact.Id);
                     if (existing)
                         canvas.artifacts.remove(existing);
@@ -111,13 +114,15 @@
                 };
 
                 //board being cleared
-                hub.boardCleared = function (event) {
+                hub.boardCleared = function (event, callerId) {
+                    if (callerId === hub.callerId) { return; }
                     canvas.artifacts.removeAll();
                     _recordEvent(event);
                 };
 
                 //artifact being removed
-                hub.artifactRemoved = function (artifactId, event) {
+                hub.artifactRemoved = function (artifactId, event, callerId) {
+                    if (callerId === hub.callerId) { return; }
                     var existing = _findArtifact(artifactId);
                     if (existing)
                         canvas.artifacts.remove(existing);
