@@ -7,12 +7,7 @@
             radius: 0
         }),
 
-        _delete = new Kinetic.Circle({
-            fill: "red",
-            radius: 10,
-            stroke: 0,
-            listen: true
-        }),
+        _delete = new Kinetic.Group(),
 
         _currentBoard,
 
@@ -20,7 +15,7 @@
 
         //initialize
         _init = function () {
-            _delete.on("click", function (evt) {
+            _delete.on("click tap", function (evt) {
                 if (_currentBoard && _selectedArtifact()) {
                     _currentBoard.removeArtifact(_selectedArtifact());
                     var layer = _delete.getLayer();
@@ -31,6 +26,18 @@
                 evt.stopPropagation();
                 return false;
             });
+
+            _delete.add(new Kinetic.Circle({
+                fill: "red",
+                radius: 10,
+                listen: true
+            }));
+            _delete.add(new Kinetic.Line({
+                stroke: "#fff",
+                x: -5, y: -5,
+                strokeWidth: 3,
+                points: [ 1,1 , 9,9 , 5,5 , 1,9 , 9,1 ]
+            }));
         },
 
         _updateDeleteMarker = function (context) {
@@ -48,8 +55,7 @@
             }
 
             if (shape.shapeType === "Text") {
-                var radius = _delete.getRadius().x;
-                x += shape.getBoxWidth() + (radius * 1.2);
+                x += shape.getBoxWidth() + 15;
             }
 
             _delete.setX(x);
