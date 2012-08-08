@@ -35,22 +35,23 @@
         },
         
         //reset the current drawing when the pen goes down
-        _penDown = function (pos, context) {
-            _currentDrawingPoints = [pos];
+        _penDown = function (context) {
+            _currentDrawingPoints = [context.pos];
             _tempLine = new Kinetic.Line(_getLineData());
             context.cursorLayer.add(_tempLine);
         },
 
         //save each point in the current drawing
         //and put a dot at the point where it was 
-        _penMove = function (pos, context) {
-            _currentDrawingPoints.push(pos);
+        _penMove = function (context) {
+            _currentDrawingPoints.push(context.pos);
         },
-        _penUp = function (pos) {
+        _penUp = function (context) {
             if (_currentDrawingPoints.length) {
                 return {
                     Type: "Line",
-                    Data: _getLineData()
+                    Data: _getLineData(),
+                    detectionType: "pixel"
                 };
             }
         };

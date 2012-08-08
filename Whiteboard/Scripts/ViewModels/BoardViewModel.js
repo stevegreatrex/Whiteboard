@@ -4,7 +4,8 @@
         if (!boardData) throw "Board data must be specified";
         if (!canvas) throw "Canvas view model is required";
 
-        var
+        var _self = this,
+
             //board name
             _name = ko.observable(boardData.Name),
             _hasSavedName = ko.observable(false),
@@ -12,6 +13,12 @@
                 _hasSavedName(true);
                 return hub.renameBoard(boardData.Id, _name());
             }),
+
+            //remove an artifact
+            _removeArtifact = function (artifact) {
+                canvas.artifacts.remove(artifact);
+                hub.removeArtifact(artifact.artifact().Id);
+            },
 
             //clear board
             _clearBoard = ko.command(function () {
@@ -122,6 +129,7 @@
             _init = function () {
                 _populateEventsFromInitialData();
                 _populateArtifactsFromInitialData();
+                canvas.baseEventContext.board = _self;
 
                 if (canvas.artifacts().length)
                     canvas.currentTool(ViewModels.CanvasViewModel.Tools.Pan);
@@ -174,6 +182,7 @@
         this.clearBoard = _clearBoard;
         this.canvas = canvas;
         this.undo = _undo;
+        this.removeArtifact = _removeArtifact;
     };
 
 })(jQuery, ko, window);

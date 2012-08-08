@@ -37,25 +37,25 @@
             },
         
             //reset the current drawing when the pen goes down
-            _penDown = function (pos, context) {
-                _startPos = pos;
-                _tempCircle = new Kinetic.Ellipse(_getCircleData(pos));
+            _penDown = function (context) {
+                _startPos = context.pos;
+                _tempCircle = new Kinetic.Ellipse(_getCircleData(context.pos));
                 context.cursorLayer.add(_tempCircle);
             },
 
             //save each point in the current drawing
             //and put a dot at the point where it was 
-            _penMove = function (pos, context) {
-                var updatedData = _getCircleData(pos);
+            _penMove = function (context) {
+                var updatedData = _getCircleData(context.pos);
                 _tempCircle.setRadius(updatedData.radius);
                 _tempCircle.setX(updatedData.x);
                 _tempCircle.setY(updatedData.y);
             },
-            _penUp = function (pos) {
+            _penUp = function (context) {
                 if (_startPos) {
                     return {
                         Type: "Ellipse",
-                        Data: _getCircleData(pos)
+                        Data: _getCircleData(context.pos)
                     };
                 }
             };

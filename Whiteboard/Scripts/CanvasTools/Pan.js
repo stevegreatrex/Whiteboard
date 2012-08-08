@@ -14,25 +14,25 @@
         _init = function () {
         },
 
-        _penDown = function (pos, context) {
-            _startPosition = pos;
+        _penDown = function (context) {
+            _startPosition = context.pos;
         },
 
         //save each point in the current drawing
         //and put a dot at the point where it was 
-        _penMove = function (pos, context) {
+        _penMove = function (context) {
             if (_startPosition) {
                 var currentOffset = context.drawingLayer.getOffset(),
                     targetOffset = {
-                        x: currentOffset.x + _startPosition.x - pos.x,
-                        y: currentOffset.y + _startPosition.y - pos.y
+                        x: currentOffset.x + _startPosition.x - context.pos.x,
+                        y: currentOffset.y + _startPosition.y - context.pos.y
                     };
                 context.cursorLayer.setOffset(targetOffset);
                 context.drawingLayer.setOffset(targetOffset);
                 context.drawingLayer.draw();
             }
         },
-        _penUp = function (pos, context) {
+        _penUp = function (context) {
             _startPosition = null;
         };
 

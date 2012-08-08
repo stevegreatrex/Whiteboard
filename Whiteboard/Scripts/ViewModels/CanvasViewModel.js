@@ -19,6 +19,9 @@
             }),
             _cursor,
 
+            //the base object for event contexts
+            _baseEventContext = {},
+
             //custom events - not sure if there's a better way to do this!
             _artifactAdded = ko.observable(),
             _artifactMoved = ko.observable(),
@@ -69,12 +72,15 @@
              },
 
             //create the context passed to tools
-            _createEventContext = function () {
-                return {
+            _createEventContext = function (evt) {
+                return $.extend({
                     cursorLayer: _cursorLayer,
                     drawingLayer: _drawingLayer,
-                    stage: _stage
-                }
+                    stage: _stage,
+                    pos: _getCurrentPosition(),
+                    artifact: evt != null ? evt.artifact : null
+                },
+                _baseEventContext);
             },
 
             //add the created artifact with a new view model
@@ -88,43 +94,65 @@
                 }
             },
            
-            //hook up the drag events on the event sink
+           //hook up the drag events on the event sink
             _hookUpDragEvents = function () {
+                //drawing element dragend forwarded to tools
                 _drawingLayer.on("dragend", function (evt) {
                     _artifactMoved(evt.artifact);
+                    if (_currentTool().dragend) {
+                        _currentTool().dragend(_createEventContext(evt))
+                    }
                 });
 
-                _eventSink.on("click dbltap", function (e) {
+                //drawing element dragmove forwarded to tools
+                _drawingLayer.on("dragmove", function (evt) {
+                    if (_currentTool().dragmove) {
+                        _currentTool().dragmove(_createEventContext(evt))
+                    }
+                });
+
+                //helper function used for events that are just passed to the current tool
+                var attachEventHandler = function (events, method) {
+                    var handler = function(evt) {
+                        if (_currentTool()[method]) {
+                            _handleCreatedArtifact(_currentTool()[method](_createEventContext(evt)));
+                        }
+                    };
+                    _drawingLayer.on(events, handler);
+                    _eventSink.on(events, handler);
+                }
+
+                attachEventHandler("dblclick dbltap", "dblclick");
+                attachEventHandler("click tap", "click");
+
+                _eventSink.on("click tap", function (evt) {
                     if (_currentTool().click) {
-                        var pos = _getCurrentPosition();
-                        _handleCreatedArtifact(_currentTool().click(pos, _createEventContext()));
+                        _handleCreatedArtifact(_currentTool().click(_createEventContext(evt)));
                     }
                 });
 
-                _eventSink.on("dragstart", function (e) {
+                _eventSink.on("dragstart", function (evt) {
                     if (_currentTool().penDown) {
-                        var pos = _getCurrentPosition();
                         _cursor.setAlpha(1);
-                        _currentTool().penDown(pos, _createEventContext());
+                        _currentTool().penDown(_createEventContext());
                         _cursorLayer.draw();
                     }
                 });
 
-                _eventSink.on("dragmove", function (e) {
+                _eventSink.on("dragmove", function (evt) {
                     if (_currentTool().penMove) {
-                        var pos = _getCurrentPosition();
-                        _cursor.setX(pos.x);
-                        _cursor.setY(pos.y);
+                        var context = _createEventContext(evt);
+                        _cursor.setX(context.pos.x);
+                        _cursor.setY(context.pos.y);
 
-                        _currentTool().penMove(pos, _createEventContext());
+                        _currentTool().penMove(context);
                         _cursorLayer.draw();
                     }
                 });
 
-                _eventSink.on("dragend mouseleave", function (e) {
+                _eventSink.on("dragend mouseleave", function (evt) {
                     if (_currentTool().penUp) {
-                        var pos = _getCurrentPosition();
-                        _handleCreatedArtifact(_currentTool().penUp(pos, _createEventContext()));                      
+                        _handleCreatedArtifact(_currentTool().penUp(_createEventContext(evt)));                      
                     }
                     _resetCursorLayer();
                 });
@@ -195,10 +223,16 @@
                 _loadTools();
 
                 //when tool changes, reset cursor layer and notify the tool
-                _currentTool.subscribe(function (tool) {
+                _currentTool.subscribe(function (selectedTool) {
                     _resetCursorLayer();
-                    if (tool.selected) {
-                        tool.selected(_createEventContext());
+                    var context = _createEventContext();
+                    for (var i = 0; i < _availableTools().length; i++) {
+                        var tool = _availableTools()[i];
+                        if (tool.selected && tool === selectedTool) {
+                            tool.selected(context);
+                        } else if (tool.unselected && tool !== selectedTool) {
+                            tool.unselected(context);
+                        }
                     }
                 });
             };
@@ -216,6 +250,7 @@
         this.localAddedArtifacts = _localAddedArtifacts;
         this.exportAsImage = _exportAsImage;
         this.addNewArtifact = _handleCreatedArtifact;
+        this.baseEventContext = _baseEventContext;
     };
 
     ViewModels.CanvasViewModel.Tools = {};

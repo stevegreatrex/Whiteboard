@@ -77,11 +77,12 @@
 			    _shape.setDraggable(true);
 			    _shape.on("dragstart", function (evt) { _dragStart = evt })
 
-			    _shape.on("dragend", function (evt) {
+			    _shape.on("dragend dragmove dblclick dbltap click tap", function (evt) {
 			        evt.artifact = _self;
-			        
+			    });
+			    _shape.on("dragend", function (evt) {
 			        _artifact().Data.x = _shape.getX();
-			        _artifact().Data.y = _shape.getY()
+			        _artifact().Data.y = _shape.getY();
 			    });
 			};
 

@@ -25,19 +25,19 @@
                 }
             },
 
-            _click = function (pos) {
+            _dblclick = function (context) {
                 var enteredText = prompt("Enter Text");
                 if (enteredText) {
                     return {
                         Type: "Text",
-                        Data: _getTextData(pos, enteredText)
+                        Data: _getTextData(context.pos, enteredText)
                     };
                 }
             };
 
         return {
             cursor: _cursor,
-            click: _click,
+            dblclick: _dblclick,
             icon: "icon-font",
             name: "Text Tool",
             color: GlobalSettings.color,
