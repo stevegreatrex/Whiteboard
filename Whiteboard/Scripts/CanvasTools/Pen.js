@@ -1,27 +1,16 @@
 ﻿(function (Tools, GlobalSettings) {
     Tools.Pen = (function () {
         var
-            //keep a record of all points in the current line
-            _currentDrawingPoints = [],
+        //keep a record of all points in the current line
+        _currentDrawingPoints = [],
 
-            //the line drawn whilst the mouse/touch is down
-            _tempLine,
+        //the line drawn whilst the mouse/touch is down
+        _tempLine,
 
-            //simple cursor
-            _cursor = new Kinetic.Circle({
-                strokeWidth: 2
-            }),
-
-            //update cursor with size and color
-            _updateCursor = function () {
-                _cursor.setRadius(GlobalSettings.size()/2);
-                _cursor.setStroke(GlobalSettings.color());
-            },
            
-           //hook up event listeners on color & size
+        
         _init = function () {
-            GlobalSettings.size.subscribe(_updateCursor);
-            GlobalSettings.color.subscribe(_updateCursor);
+            
         },
 
         //generates the line data for either the temporary or confirmed line
@@ -59,7 +48,6 @@
         _init();
 
         return {
-            cursor: _cursor,
             penDown: _penDown,
             penMove: _penMove,
             penUp: _penUp,

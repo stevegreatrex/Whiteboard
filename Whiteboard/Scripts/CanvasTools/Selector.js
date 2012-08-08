@@ -1,12 +1,7 @@
 ﻿(function (Tools) {
     Tools.Selector = (function () {
         var
-        //hidden cursor
-        _cursor = new Kinetic.Circle({
-            strokeWidth: 0,
-            radius: 0
-        }),
-
+        
         _delete,
 
         _selectedArtifact = ko.observable(),
@@ -98,7 +93,6 @@
             unselected: _unselected,
             dragmove: _dragmove,
             click: _click,
-            cursor: _cursor,
             icon: "icon-hand-up",
             name: "Selector Tool"
         };

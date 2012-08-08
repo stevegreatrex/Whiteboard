@@ -1,12 +1,7 @@
 ﻿(function (Tools) {
     Tools.Pan = (function () {
         var
-        //hidden cursor
-        _cursor = new Kinetic.Circle({
-            strokeWidth: 0,
-            radius: 0
-        }),
-
+        
         //flag to track whether or not the pen is down
         _startPosition,
           
@@ -39,7 +34,6 @@
         _init();
 
         return {
-            cursor: _cursor,
             penDown: _penDown,
             penMove: _penMove,
             penUp: _penUp,

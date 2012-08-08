@@ -4,12 +4,6 @@
            //the circle drawn whilst the mouse/touch is down
             _tempCircle,
 
-            //invisible cursor
-            _cursor = new Kinetic.Circle({
-                strokeWidth: 0,
-                radius: 0
-            }),
-
             //keep a record of the point the pen went down
             _startPos,
 
@@ -67,7 +61,6 @@
             };
 
         return {
-            cursor: _cursor,
             penDown: _penDown,
             penMove: _penMove,
             penUp: _penUp,

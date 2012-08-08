@@ -7,12 +7,6 @@
             //font family
             _fontFamily = ko.observable("Segoe UI"),
 
-            //invisible cursor
-            _cursor = new Kinetic.Circle({
-                strokeWidth: 0,
-                radius: 0
-            }),
-
            //generates the text area
             _getTextData = function (pos, text) {
                 return {
@@ -36,7 +30,6 @@
             };
 
         return {
-            cursor: _cursor,
             dblclick: _dblclick,
             icon: "icon-font",
             name: "Text Tool",

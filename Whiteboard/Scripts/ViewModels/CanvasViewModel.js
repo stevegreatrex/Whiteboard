@@ -17,8 +17,7 @@
                 height: $container.height(),
                 draggable: true
             }),
-            _cursor,
-
+           
             //the base object for event contexts
             _baseEventContext = {},
 
@@ -46,16 +45,13 @@
             _resetCursorLayer = function () {
                 _cursorLayer.removeChildren();
 
-                _cursor = _currentTool().cursor;
-
-                var drawingOffset = _drawingLayer.getOffset();
+                              var drawingOffset = _drawingLayer.getOffset();
 
                 _eventSink.setX(0);
                 _eventSink.setY(0);
                 _eventSink.setSize($container.width(), $container.height());
                 _eventSink.setOffset(-drawingOffset.x, -drawingOffset.y); //make sure that the even sink always covers the screen
-                _cursor.setAlpha(0);
-                _cursorLayer.add(_cursor);
+               
                 _cursorLayer.add(_eventSink);
                 _cursorLayer.draw();
             },
@@ -133,18 +129,13 @@
 
                 _eventSink.on("dragstart", function (evt) {
                     if (_currentTool().penDown) {
-                        _cursor.setAlpha(1);
                         _currentTool().penDown(_createEventContext());
-                        _cursorLayer.draw();
                     }
                 });
 
                 _eventSink.on("dragmove", function (evt) {
                     if (_currentTool().penMove) {
                         var context = _createEventContext(evt);
-                        _cursor.setX(context.pos.x);
-                        _cursor.setY(context.pos.y);
-
                         _currentTool().penMove(context);
                         _cursorLayer.draw();
                     }
