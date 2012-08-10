@@ -151,9 +151,9 @@
     <Compile Include="Controllers\BoardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Hubs\BoardHub.cs" />
-    <Compile Include="Migrations\201208031348236_InitialCreate.cs" />
-    <Compile Include="Migrations\201208031348236_InitialCreate.Designer.cs">
-      <DependentUpon>201208031348236_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201208041143346_InitialCreate.cs" />
+    <Compile Include="Migrations\201208041143346_InitialCreate.Designer.cs">
+      <DependentUpon>201208041143346_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Artifact.cs" />
@@ -200,6 +200,7 @@
     <Content Include="Content\jquery.mobile.theme-1.1.0.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <None Include="Properties\PublishProfiles\iCH.pubxml" />
     <None Include="Properties\PublishProfiles\whiteboard - Azure - Release.pubxml" />
     <None Include="Scripts\jquery-1.7.2.intellisense.js">
       <DependentUpon>jquery-1.7.2.js</DependentUpon>
