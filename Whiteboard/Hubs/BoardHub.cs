@@ -123,10 +123,37 @@ namespace Whiteboard.Hubs
 		/// Join a board
 		/// </summary>
 		/// <param name="boardId"></param>
-		public void Join(Guid boardId)
+		public void Join(Guid boardId, bool recordOpening)
 		{
 			Caller.callerId = Guid.NewGuid();
 			Groups.Add(Context.ConnectionId, boardId.ToString());
+
+			if (recordOpening && IsAuthenticated())
+			{
+				var openBoard = _context.OpenBoards
+					.Where(ob => ob.BoardId == boardId && ob.Username == this.Context.User.Identity.Name)
+					.FirstOrDefault();
+
+				if (openBoard == null)
+				{
+					openBoard = new OpenBoard
+					{
+						Id = Guid.NewGuid(),
+						BoardId = boardId,
+						Username = this.Context.User.Identity.Name
+					};
+
+					_context.OpenBoards.Add(openBoard);
+				}
+
+				openBoard.LastOpened = DateTime.Now;
+				_context.SaveChanges();
+			}
+		}
+
+		private bool IsAuthenticated()
+		{
+			return this.Context.User != null && !string.IsNullOrEmpty(this.Context.User.Identity.Name);
 		}
 	}
 }

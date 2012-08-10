@@ -30,7 +30,7 @@
                         <ul class="nav">
                           <li class="@(ViewBag.ActiveLink == Whiteboard.ActiveLink.Home ? "active" : "")"><a href="/">Home</a></li>
                           <li class="dropdown @(ViewBag.ActiveLink == Whiteboard.ActiveLink.Board ? "active" : "")">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">@(ViewBag.BoardName ?? "Boards")<b class="caret"></b></a>
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Boards<b class="caret"></b></a>
                               <ul class="dropdown-menu">
                                   @if (ViewBag.Boards != null)
                                   {

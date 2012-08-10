@@ -155,6 +155,10 @@
     <Compile Include="Migrations\201208041143346_InitialCreate.Designer.cs">
       <DependentUpon>201208041143346_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201208101817026_OpenBoards.cs" />
+    <Compile Include="Migrations\201208101817026_OpenBoards.Designer.cs">
+      <DependentUpon>201208101817026_OpenBoards.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Artifact.cs" />
     <Compile Include="Models\Board.cs" />
@@ -165,6 +169,7 @@
     <Compile Include="Models\BoardEvent.cs" />
     <Compile Include="Models\BoardStub.cs" />
     <Compile Include="Models\BoardViewModel.cs" />
+    <Compile Include="Models\OpenBoard.cs" />
     <Compile Include="Models\WhiteboardContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Scripts\CanvasTools\Ellipse.js" />

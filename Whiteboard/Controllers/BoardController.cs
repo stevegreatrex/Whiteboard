@@ -40,10 +40,14 @@ namespace Whiteboard.Controllers
 
 			if (Request.IsAuthenticated)
 			{
-				var openBoards = _context.Boards
-					.Where(b => b.CreatedByUser == User.Identity.Name)
-					.OrderByDescending(b => b.BoardEvents.Max(be => be.Date))
+				var openBoards = _context.OpenBoards
+					.Include("Board")
+					.Where(b => b.Username == User.Identity.Name)
+					.Where(b => b.BoardId != id.Value)
+					.OrderByDescending(b => b.LastOpened)
+					.Select(b => b.Board)
 					.Take(10);
+
 				foreach (var openBoard in openBoards)
 				{
 					viewModel.OpenBoards.Add(openBoard);					

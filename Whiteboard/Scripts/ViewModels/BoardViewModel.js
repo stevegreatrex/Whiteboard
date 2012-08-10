@@ -171,7 +171,7 @@
             
             //called once the hub is up and running
             _onHubStarted = function () {
-                hub.join(boardData.Id);
+                hub.join(boardData.Id, true);
             };
 
         _init();
